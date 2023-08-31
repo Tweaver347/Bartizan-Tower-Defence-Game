@@ -43,10 +43,10 @@ We welcome contributions to improve and expand Bartizan. If you have suggestions
 
 ## Credits
 
-- Game concept and mechanics: Coming Soon!
-- Visual design: Coming Soon!
-- Sound design: Coming Soon!
-- Developed by: Coming Soon!
+Neel Dadhania
+Hayden Le
+Thomas Weaver
+
 
 ## Conclusion
 
