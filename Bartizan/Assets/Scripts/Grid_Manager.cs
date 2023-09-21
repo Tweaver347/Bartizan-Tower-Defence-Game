@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
+using System.Security.Principal;
+using Unity.Burst.Intrinsics;
+using Unity.VisualScripting;
+using UnityEditor;
 
 public class Grid_Manager
 {
@@ -10,6 +15,7 @@ public class Grid_Manager
     private float cellSize;
     private Vector3 originPosition;
     private int[,] gridArray;
+    private TextMesh[,] debugTestArray;
 
     //grid manager constructor used to setup the grid at the beginning of each level
     public Grid_Manager(int width, int height, float cellSize, Vector3 originPosition)
@@ -20,6 +26,7 @@ public class Grid_Manager
         this.originPosition = originPosition;
 
         gridArray = new int[width, height];
+        debugTestArray = new TextMesh[width, height];
         
 
         for(int i = 0; i < gridArray.GetLength(0); i++)
@@ -27,7 +34,8 @@ public class Grid_Manager
             for(int j = 0; j < gridArray.GetLength(1); j++)
             {
                 //adding text value to each cell
-                UtilsClass.CreateWorldText(gridArray[i, j].ToString(), null, GetWorldPosition(i, j) + new Vector3(cellSize, cellSize) * 0.5f, 20, Color.white, TextAnchor.MiddleCenter);
+                debugTestArray[i, j] = UtilsClass.CreateWorldText(gridArray[i, j].ToString(), null, GetWorldPosition(i, j) + new Vector3(cellSize, cellSize) * 0.5f, 20, Color.white, TextAnchor.MiddleCenter);
+                
                 
                 //generating grid lines to make it easier to visulise the gird
                 Debug.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i, j + 1), Color.white, 100f);
@@ -54,21 +62,28 @@ public class Grid_Manager
     {
         x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
         y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize);
+        
     }
 
-    /*sets value for specific grid cell
-     * to be used to set values so that the game manager can
-     * identify which cells can be walked on by enemy and which
-     * cells are valid to place towers on
-     * for example: value = 0 means empty grid cell
-     * value = 1 means not empty grid cell
-     */
+   
+    /// <summary>
+    /// sets value for specific grid cell
+    /// to be used to set values so that the game manager can
+    /// identify which cells can be walked on by enemy and which
+    /// cells are valid to place towers on
+    /// for example: value = 0 means empty grid cell
+    /// value = 1 means not empty grid cell
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="value"></param>
     public void SetValue(int x, int y, int value)
     {
         //***TODO: add conditional statement to check for valid and invalid values
         if (x >= 0 && y >= 0 && x < width && y < height)
         {
             gridArray[x, y] = value;
+            debugTestArray[x, y].text = value.ToString();
         }
         
     }
