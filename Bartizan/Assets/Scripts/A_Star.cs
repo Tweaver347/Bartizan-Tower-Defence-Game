@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class A_Star
 {
-    public List<Vector3> findPath(Grid_Manager grid, Grid_Cell start, Grid_Cell end)
+    public static List<Vector3> findPath(Grid_Manager grid, Grid_Cell start, Grid_Cell end)
     {
         List<Vector3> path = new List<Vector3>();
 
@@ -18,11 +18,11 @@ public class A_Star
         Grid_Cell startPoint = start;
         startPoint.SetDistTo(0);
 
-        while(true)
+        /*while(true)
         {
             Grid_Cell current = frontier.poll(); //basically remove the first cell in frontier
             visited.Add(current);
-            Grid_Cell[] neighbours = grid.getNeighbour(current);
+            Grid_Cell[] neighbours = grid.getNeighbors(current);
             foreach (Grid_Cell i in neighbours)
             {
                 if(!visited.Contains(i) && !frontier.contains(i)) 
@@ -44,7 +44,7 @@ public class A_Star
                 }
                 break; 
             }
-        }
+        }*/
 
         //reverse the path
 
