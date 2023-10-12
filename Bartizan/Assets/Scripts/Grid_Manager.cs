@@ -7,8 +7,9 @@ using System.Security.Principal;
 using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEngine.UI;
 
-public class Grid_Manager
+public class Grid_Manager : MonoBehaviour 
 {
     private int width;
     private int height;
@@ -17,6 +18,8 @@ public class Grid_Manager
     private int[,] gridArray;
     private TextMesh[,] debugTestArray;
 
+
+
     //grid manager constructor used to setup the grid at the beginning of each level
     public Grid_Manager(int width, int height, float cellSize, Vector3 originPosition)
     {
@@ -24,6 +27,7 @@ public class Grid_Manager
         this.height = height;
         this.cellSize = cellSize;
         this.originPosition = originPosition;
+        
 
         gridArray = new int[width, height];
         debugTestArray = new TextMesh[width, height];
@@ -35,8 +39,7 @@ public class Grid_Manager
             {
                 //adding text value to each cell
                 debugTestArray[i, j] = UtilsClass.CreateWorldText(gridArray[i, j].ToString(), null, GetWorldPosition(i, j) + new Vector3(cellSize, cellSize) * 0.5f, 20, Color.white, TextAnchor.MiddleCenter);
-                
-                
+                    
                 //generating grid lines to make it easier to visulise the gird
                 Debug.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i, j + 1), Color.white, 100f);
                 Debug.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i + 1, j), Color.white, 100f);
