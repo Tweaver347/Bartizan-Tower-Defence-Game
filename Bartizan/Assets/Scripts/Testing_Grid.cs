@@ -8,7 +8,9 @@ public class Testing_Grid : MonoBehaviour
     public GameObject gridButton;
     public GameObject canvasPrefab;
 
-    private Grid_Manager grid;
+    public static Grid_Manager grid;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +22,7 @@ public class Testing_Grid : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            grid.SetValue(UtilsClass.GetMouseWorldPosition(), 58);
+            grid.SetValue(UtilsClass.GetMouseWorldPosition(), 1);
         }
 
         if (Input.GetMouseButtonDown(1))
