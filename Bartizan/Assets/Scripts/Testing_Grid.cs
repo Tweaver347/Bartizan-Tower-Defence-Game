@@ -5,6 +5,8 @@ using CodeMonkey.Utils;
 
 public class Testing_Grid : MonoBehaviour
 {
+    public GameObject gridButton;
+    public GameObject canvasPrefab;
 
     private Grid_Manager grid;
     // Start is called before the first frame update
