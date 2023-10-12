@@ -41,7 +41,7 @@ public class Grid_Manager : MonoBehaviour
             {
                 //adding text value to each cell
                 debugTestArray[i, j] = UtilsClass.CreateWorldText(gridArray[i, j].ToString(), null, GetWorldPosition(i, j) + new Vector3(cellSize, cellSize) * 0.5f, 20, Color.white, TextAnchor.MiddleCenter);
-                gridArray[i, j] = new Grid_Cell(0, GetWorldPosition(i, j));
+                gridArray[i, j] = new Grid_Cell(i, j, 0, GetWorldPosition(i, j));
                 //generating grid lines to make it easier to visulise the gird
                 Debug.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i, j + 1), Color.white, 100f);
                 Debug.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i + 1, j), Color.white, 100f);
@@ -123,9 +123,36 @@ public class Grid_Manager : MonoBehaviour
         return GetValue(x, y);
     }
 
-    public Grid_Cell[] getNeighbour(Grid_Cell current)
+    public Grid_Cell[] getNeighbors(Grid_Cell current)
     {
-        //
+        int x, y;
+        List<Grid_Cell> neighbors = new List<Grid_Cell>();
+        current.getXY(out x, out y);
+        
+        int numRows = gridArray.GetLength(0);
+        int numCols = gridArray.GetLength(1);
+
+        if (x > 0)  //check and add above
+        {
+            neighbors.Add(gridArray[x - 1, y]);
+        }
+
+        if (y > 0)  //check and add left
+        {
+            neighbors.Add(gridArray[x, y - 1]);
+        }
+        
+        if (x < numRows - 1)    //check and add below
+        {
+            neighbors.Add(gridArray[x + 1, y]);
+        }
+
+        if (y < numCols - 1)    //check and add right
+        {
+            neighbors.Add(gridArray[x, y + 1]);
+        }
+
+        return neighbors.ToArray();
     }
 
     
@@ -133,13 +160,16 @@ public class Grid_Manager : MonoBehaviour
 
 public class Grid_Cell
 {
+    int x, y;
     int value;
     int distTo;
     int distFrom;
     Grid_Cell previous;
     Vector3 position;
-    public Grid_Cell(int value, Vector3 position)
+    public Grid_Cell(int x, int y, int value, Vector3 position)
     {
+        this.x = x;
+        this.y = y;
         this.value = value;
         this.position = position;
     }
@@ -160,6 +190,12 @@ public class Grid_Cell
     public int GetDistFrom() { return this.distFrom; }
 
     public Vector3 GetPosition() { return this.position; }
+
+    public void getXY(out int x, out int y)
+    {
+        x = this.x;
+        y = this.y;
+    }
 
 
 }
