@@ -15,8 +15,10 @@ public class Grid_Manager : MonoBehaviour
     private int height;
     private float cellSize;
     private Vector3 originPosition;
-    private int[,] gridArray;
+    private Grid_Cell[,] gridArray;
     private TextMesh[,] debugTestArray;
+    private int distTo;
+    private int distFrom;
 
 
 
@@ -29,7 +31,7 @@ public class Grid_Manager : MonoBehaviour
         this.originPosition = originPosition;
         
 
-        gridArray = new int[width, height];
+        gridArray = new Grid_Cell[width, height];
         debugTestArray = new TextMesh[width, height];
         
 
@@ -39,7 +41,7 @@ public class Grid_Manager : MonoBehaviour
             {
                 //adding text value to each cell
                 debugTestArray[i, j] = UtilsClass.CreateWorldText(gridArray[i, j].ToString(), null, GetWorldPosition(i, j) + new Vector3(cellSize, cellSize) * 0.5f, 20, Color.white, TextAnchor.MiddleCenter);
-                    
+                gridArray[i, j] = new Grid_Cell(0, GetWorldPosition(i, j));
                 //generating grid lines to make it easier to visulise the gird
                 Debug.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i, j + 1), Color.white, 100f);
                 Debug.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i + 1, j), Color.white, 100f);
@@ -51,11 +53,10 @@ public class Grid_Manager : MonoBehaviour
         Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
         Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
 
-
     }
 
     //gets the position of the grid cell in the game world
-    private Vector3 GetWorldPosition(int x, int y)
+    public Vector3 GetWorldPosition(int x, int y)
     {
         return new Vector3(x, y) * cellSize + originPosition;
     }
@@ -85,7 +86,7 @@ public class Grid_Manager : MonoBehaviour
         //***TODO: add conditional statement to check for valid and invalid values
         if (x >= 0 && y >= 0 && x < width && y < height)
         {
-            gridArray[x, y] = value;
+            gridArray[x, y].SetValue(value);
             debugTestArray[x, y].text = value.ToString();
         }
         
@@ -104,7 +105,7 @@ public class Grid_Manager : MonoBehaviour
     {
         if(x >= 0 && y >= 0 && x <= width && y <= height)
         {
-            return gridArray[x, y];
+            return gridArray[x, y].GetValue();
         }
         else
         {
@@ -121,4 +122,44 @@ public class Grid_Manager : MonoBehaviour
         GetXY(worldPosition, out x, out y);
         return GetValue(x, y);
     }
+
+    public Grid_Cell[] getNeighbour(Grid_Cell current)
+    {
+        //
+    }
+
+    
+}
+
+public class Grid_Cell
+{
+    int value;
+    int distTo;
+    int distFrom;
+    Grid_Cell previous;
+    Vector3 position;
+    public Grid_Cell(int value, Vector3 position)
+    {
+        this.value = value;
+        this.position = position;
+    }
+
+    public void SetValue(int value) {  this.value = value;  }
+
+    public int GetValue() {  return this.value;  }
+
+    public void SetPrevious(Grid_Cell previous) {  this.previous = previous;  }
+
+    public Grid_Cell GetPrevious() {  return this.previous;  }
+
+    public void SetDistTo(int distTo) {  this.distTo = distTo;  }
+
+    public int GetDistTo() {  return this.distTo;  }
+    public void SetDistFrom(int distFrom) {  this.distFrom = distFrom;  }
+
+    public int GetDistFrom() { return this.distFrom; }
+
+    public Vector3 GetPosition() { return this.position; }
+
+
 }
