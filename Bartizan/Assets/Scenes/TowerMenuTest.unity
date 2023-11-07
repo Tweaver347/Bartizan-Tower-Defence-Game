@@ -1334,6 +1334,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7864128967652024655, guid: e64f707fdf740ea4aa747eec8db7b40e, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8028616437285456432, guid: e64f707fdf740ea4aa747eec8db7b40e, type: 3}
       propertyPath: m_Name
       value: RoundPanel
