@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
 
+
 public class Testing_Grid : MonoBehaviour
 {
     public GameObject gridButton;
@@ -14,7 +15,7 @@ public class Testing_Grid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        grid = new Grid_Manager(5, 3, 10f, new Vector3(20, 0));
+        //grid = new Grid_Manager(5, 3, 10f, new Vector3(20, 0));
     }
 
     // Update is called once per frame

@@ -3,55 +3,85 @@ using System.Collections.Generic;
 using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
+using gridCell;
 
 public class A_Star
 {
-    public static List<Vector3> findPath(Grid_Manager grid, Grid_Cell start, Grid_Cell end)
+    public static List<Vector3> findPath(Grid_Cell[,] grid, Grid_Cell start, Grid_Cell end)
     {
+        Debug.Log("In find path");
         List<Vector3> path = new List<Vector3>();
 
-        //priority queue for frontier
+        List<Grid_Cell> frontier = new List<Grid_Cell>();
         ArrayList visited = new ArrayList();
 
-        //add start to frontier
+        frontier.Add(start);
 
         Grid_Cell startPoint = start;
         startPoint.SetDistTo(0);
 
-        /*while(true)
+        Debug.Log("starting while loop");
+        while(frontier.Count > 0)
         {
-            Grid_Cell current = frontier.poll(); //basically remove the first cell in frontier
+            Grid_Cell current = getClosestCell(frontier); //get the cell with lowest cost
+            frontier.Remove(current);
             visited.Add(current);
-            Grid_Cell[] neighbours = grid.getNeighbors(current);
-            foreach (Grid_Cell i in neighbours)
+            Grid_Cell[] neighbours = current.GetNeighbours();
+            Debug.Log("Current cell: " + current.GetNumber());
+            Debug.Log("checking neighbours");
+            for (int i = 0; i < neighbours.Length; i++)
             {
-                if(!visited.Contains(i) && !frontier.contains(i)) 
+                Grid_Cell nextCell = neighbours[i];
+                Debug.Log("Neighbour found: " + nextCell.GetNumber());
+                if(!visited.Contains(nextCell) && !frontier.Contains(nextCell)) 
                 {
-                    i.SetPrevious(current);
-                    i.SetDistTo(current.GetDistTo() + 1);
-                    i.SetDistFrom(calculateH(current.GetPosition(), end.GetPosition()));
+                    nextCell.SetPrevious(current);
+                    nextCell.SetDistTo(current.GetDistTo() + 1);
+                    nextCell.SetDistFrom(calculateH(current.GetPosition(), end.GetPosition()));
 
-                    // add i to frontier
+                    frontier.Add(nextCell);
                 }
             }
+
 
             if(current == end)
             {
-                while(current.GetPrevious() != null)
+                Debug.Log("end found. Path:");
+                
+                while (current.GetPrevious() != null)
                 {
+                    Debug.Log(current.GetNumber());
                     path.Add(current.GetPosition());
                     current = current.GetPrevious();
                 }
+                //path.Add(current.GetPosition());      //adding the spawn position. Not needed in the Path for the enemy.
                 break; 
             }
-        }*/
+        }
+        Debug.Log("path found. revercing it.");
+        path.Reverse();
 
-        //reverse the path
-
+        
+        Debug.Log("returning path: " + path);
         return path;
     }
+    public static Grid_Cell getClosestCell(List<Grid_Cell> frontier)
+    {
+        Grid_Cell closestCell = frontier[0];
 
-    private int calculateH(Vector3 current, Vector3 goal)
+        for(int i = 1; i < frontier.Count; i++)
+        {
+            if(closestCell.GetDistTo() + closestCell.GetDistFrom() > frontier[i].GetDistTo() + frontier[i].GetDistFrom())
+            {
+                closestCell = frontier[i];
+            }
+        }
+
+        return closestCell;
+    }
+
+
+    public static int calculateH(Vector3 current, Vector3 goal)
     {
         int huristic = (int)Mathf.Abs(current.x - goal.x) + (int)Mathf.Abs(current.y - goal.y);
         return huristic;
