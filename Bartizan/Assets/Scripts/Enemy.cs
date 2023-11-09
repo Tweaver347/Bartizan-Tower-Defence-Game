@@ -21,24 +21,34 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         //moveOnPath(path);
-        
+
     }
 
     public void setup(List<Vector3> path)
     {
+        if (path == null)
+        {
+            Debug.LogError("Path is null. Make sure to call setup() before moveOnPath().");
+            return;
+        }
         this.path = path;
         moveOnPath(this.path);
     }
 
     private void moveOnPath(List<Vector3> path)
     {
-        for(int i  = 0; i < path.Count; i++)
+        if (path == null)
+        {
+            Debug.LogError("Path is not initialized. Make sure to call setup() before moveOnPath().");
+            return;
+        }
+        for (int i = 0; i < path.Count - 1; i++)
         {
             Debug.Log("Moving to: " + path[i]);
             Vector3 target = path[i];
-            KinematicArrive(target); 
+            KinematicArrive(target);
         }
-        
+
     }
 
     private void KinematicArrive(Vector3 targetPosition)

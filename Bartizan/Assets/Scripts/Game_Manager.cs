@@ -110,7 +110,6 @@ public class Game_Manager : MonoBehaviour
         if(path == null ) { Debug.Log("Null path"); }
         spawnedEnemy = Instantiate(enemy);
         spawnedEnemy.transform.position = spawn.GetPosition();
-        spawnedEnemy.GetComponent<Enemy>().setup(path);
         Debug.Log("drawing path");
         Vector3 start = path[0];
         for (int i = 1; i < path.Count; i++)
@@ -123,10 +122,10 @@ public class Game_Manager : MonoBehaviour
             start = path[i];
         }
         Debug.Log("line drawn");
-        
+        spawnedEnemy.GetComponent<Enemy>().setup(path);
 
-        
-        
-        
+
+
+
     }
 }
