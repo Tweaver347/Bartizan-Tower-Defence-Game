@@ -20,6 +20,13 @@ public class ButtonManager : MonoBehaviour
         Debug.Log("Going to Level Select!");
     }
 
+    public void GoToLevel(int levelID)
+    {
+        string levelName = "Level" + levelID;
+        Debug.Log("Going to Level " + levelID);
+        SceneManager.LoadScene(levelName);
+    }
+
     /// <summary>
     /// Sets the current scene to the Credits Menu
     /// </summary>

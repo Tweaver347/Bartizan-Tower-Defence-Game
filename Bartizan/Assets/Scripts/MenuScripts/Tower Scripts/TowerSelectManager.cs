@@ -5,7 +5,7 @@ using CodeMonkey.Utils;
 
 public class TowerSelectManager : MonoBehaviour
 {
-    
+
 
     [SerializeField] private GameObject buyMenuPanel;
     [SerializeField] private GameObject upgradeMenuPanel;
@@ -80,7 +80,7 @@ public class TowerSelectManager : MonoBehaviour
         // play closing animation
         isBuyOpen = false;
         buyMenuAnim.Play("CloseMenu");
-        
+
 
     }
 
@@ -88,23 +88,23 @@ public class TowerSelectManager : MonoBehaviour
     {
         isUpgradeOpen = true;
         // if the buy menu is out, close it
-        if (isUpgradeOpen)
+        if (isBuyOpen)
         {
             CloseBuyMenu();
         }
         // play opening animation
- 
+
         upgradeMenuAnim.Play("OpenMenu");
 
 
     }
-    
+
     public void CloseUpgradeMenu()
     {
         // play closing animation
         isUpgradeOpen = false;
         upgradeMenuAnim.Play("CloseMenu");
-        
+
 
     }
 
