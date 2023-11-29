@@ -17,6 +17,7 @@ public class levelGridManager : MonoBehaviour
 
     private void Start()
     {
+        grid = new GameObject[width, height];
         GenerateGrid();
     }
 
