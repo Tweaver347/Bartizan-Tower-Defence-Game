@@ -42,15 +42,15 @@ public class Tile : MonoBehaviour
 
     public void setNeighbours(Tile[] neighbours) { this.neighbours = neighbours; }
 
-    public Tile[] getNeighbours() {  return neighbours; }
+    public Tile[] getNeighbours() { return neighbours; }
 
     public void setDistTo(int dist) { distTo = dist; }
 
-    public int getDistTo() { return distTo;}
+    public int getDistTo() { return distTo; }
 
     public void setDistFrom(int dist) { distFrom = dist; }
 
-    public int getDistFrom() {  return distFrom;}
+    public int getDistFrom() { return distFrom; }
 
     public bool isEmpty() { return isPathable; }
     public void getTilePosition()
@@ -72,7 +72,7 @@ public class Tile : MonoBehaviour
     {
         getTilePosition();
         bool hasTower = tower != null;
-        TowerSelectorController.GetComponent<TowerSelectManager>().handleGridClicked(!hasTower);
+        TowerSelectorController.GetComponent<TowerSelectManager>().handleGridClicked(hasTower);
     }
 
 }
