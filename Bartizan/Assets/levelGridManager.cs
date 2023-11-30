@@ -51,7 +51,7 @@ public class levelGridManager : MonoBehaviour
                 grid[x, y] = spawnedTile;
                 // initialize the tile
                 bool isOffset = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0); // for offset coloring
-                spawnedTile.GetComponent<Tile>().init(isOffset, x, y);
+                spawnedTile.GetComponent<Tile>().init(isOffset, x, y, true);
             }
         }
         // set the camera position to the center of the grid
@@ -70,7 +70,6 @@ public class levelGridManager : MonoBehaviour
             for (int j = 0; j < grid.GetLength(1); j++)
             {
                 List<Tile> neighbors = new List<Tile>();
-                int index = 0;
                 int numRows = grid.GetLength(0);
                 int numCols = grid.GetLength(1);
 
@@ -78,8 +77,8 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i - 1, j].GetComponent<Tile>().isEmpty())
                     {
+                        Debug.Log("adding top neighbour");
                         neighbors.Add(grid[i - 1, j].GetComponent<Tile>());
-                        index++;
                     }
 
                 }
@@ -88,8 +87,8 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i, j - 1].GetComponent<Tile>().isEmpty())
                     {
+                        Debug.Log("adding left neighbour");
                         neighbors.Add(grid[i, j - 1].GetComponent<Tile>());
-                        index++;
                     }
 
                 }
@@ -98,8 +97,8 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i + 1, j].GetComponent<Tile>().isEmpty())
                     {
+                        Debug.Log("adding bellow neighbour");
                         neighbors.Add(grid[i + 1, j].GetComponent<Tile>());
-                        index++;
                     }
 
                 }
@@ -108,6 +107,7 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i, j + 1].GetComponent<Tile>().isEmpty())
                     {
+                        Debug.Log("adding right neighbour");
                         neighbors.Add(grid[i, j + 1].GetComponent<Tile>());
                     }
 
@@ -185,6 +185,7 @@ public class levelGridManager : MonoBehaviour
 
                 if (!visited.Contains(nextCell) && !frontier.Contains(nextCell))
                 {
+                    Debug.Log("setting prev");
                     nextCell.setPrevious(current);
                     nextCell.setDistTo(current.getDistTo() + 1);
                     nextCell.setDistFrom(calculateH(current, end));
@@ -213,11 +214,13 @@ public class levelGridManager : MonoBehaviour
         path.Reverse();
 
 
-        Debug.Log("returning path: " + path);
+        //Debug.Log("returning path: " + path);
+        Debug.Log("path length:" +  path.Count);
 
         // for each tile in path change the tile color to red
         foreach (Tile tile in path)
         {
+            Debug.Log("in for loop");
             tile.GetComponent<SpriteRenderer>().color = Color.red;
         }
         // change the start tile color to blue
