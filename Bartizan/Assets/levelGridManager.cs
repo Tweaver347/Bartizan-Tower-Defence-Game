@@ -69,7 +69,7 @@ public class levelGridManager : MonoBehaviour
         {
             for (int j = 0; j < grid.GetLength(1); j++)
             {
-                Tile[] neighbors = new Tile[4];
+                List<Tile> neighbors = new List<Tile>();
                 int index = 0;
                 int numRows = grid.GetLength(0);
                 int numCols = grid.GetLength(1);
@@ -78,7 +78,7 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i - 1, j].GetComponent<Tile>().isEmpty())
                     {
-                        neighbors[index] = (grid[i - 1, j].GetComponent<Tile>());
+                        neighbors.Add(grid[i - 1, j].GetComponent<Tile>());
                         index++;
                     }
 
@@ -88,7 +88,7 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i, j - 1].GetComponent<Tile>().isEmpty())
                     {
-                        neighbors[index] = (grid[i, j - 1].GetComponent<Tile>());
+                        neighbors.Add(grid[i, j - 1].GetComponent<Tile>());
                         index++;
                     }
 
@@ -98,7 +98,7 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i + 1, j].GetComponent<Tile>().isEmpty())
                     {
-                        neighbors[index] = (grid[i + 1, j].GetComponent<Tile>());
+                        neighbors.Add(grid[i + 1, j].GetComponent<Tile>());
                         index++;
                     }
 
@@ -108,12 +108,12 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i, j + 1].GetComponent<Tile>().isEmpty())
                     {
-                        neighbors[index] = (grid[i, j + 1].GetComponent<Tile>());
+                        neighbors.Add(grid[i, j + 1].GetComponent<Tile>());
                     }
 
                 }
 
-                grid[i, j].GetComponent<Tile>().setNeighbours(neighbors);
+                grid[i, j].GetComponent<Tile>().setNeighbours(neighbors.ToArray());
             }
         }
     }
