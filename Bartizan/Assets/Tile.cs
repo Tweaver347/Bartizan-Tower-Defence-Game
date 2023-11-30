@@ -21,12 +21,13 @@ public class Tile : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private GameObject highlight;
     [SerializeField] private GameObject TowerSelectorController;
-    public void init(bool isOffset, int x, int y)
+    public void init(bool isOffset, int x, int y, bool pathable)
     {
         spriteRenderer.color = isOffset ? offsetColor : baseColor;
         xLoc = x;
         yLoc = y;
         TowerSelectorController = GameObject.Find("TowerSelectorController");
+        isPathable = pathable;
     }
 
     public void setTower(GameObject tower)
@@ -42,7 +43,7 @@ public class Tile : MonoBehaviour
 
     public void setNeighbours(Tile[] neighbours) { this.neighbours = neighbours; }
 
-    public Tile[] getNeighbours() { return neighbours; }
+    public Tile[] getNeighbours() { return this.neighbours; }
 
     public void setDistTo(int dist) { distTo = dist; }
 
