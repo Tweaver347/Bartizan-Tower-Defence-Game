@@ -22,7 +22,6 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //moveOnPath(path);
         if(path != null && currentWayPointIndex < path.Count)
         {
             move();
@@ -38,7 +37,6 @@ public class Enemy : MonoBehaviour
             return;
         }
         this.path = path;
-        //moveOnPath(this.path);
     }
 
     private void move()
@@ -60,26 +58,5 @@ public class Enemy : MonoBehaviour
 
     }
 
-    private void KinematicArrive(Vector3 targetPosition)
-    {
-        Vector3 towardsTarget = targetPosition - myTransform.position;
-        Debug.Log("Check RoS");
-        if (towardsTarget.magnitude <= targetRadius)
-        {
-            Debug.Log("Reached. Return. Next target now.");
-            return;
-        }
-
-        towardsTarget = towardsTarget.normalized;
-
-        //Quaternion targetRotation = Quaternion.LookRotation(towardsTarget, targetPosition);
-        //myTransform.rotation = Quaternion.Lerp(myTransform.rotation, targetRotation, 0.1f);
-
-        Vector3 newPosition = myTransform.position;
-        newPosition += myTransform.forward * moveSpeed * Time.deltaTime;
-
-        Debug.Log("Changing transform position");
-        myTransform.position = newPosition;
-
-    }
+    
 }

@@ -187,13 +187,13 @@ MonoBehaviour:
   yLoc: 0
   isPathable: 0
   tower: {fileID: 0}
-  gCost: 0
-  hCost: 0
+  distTo: 0
+  distFrom: 0
   baseColor: {r: 0.43137255, g: 0.7372549, b: 0.3647059, a: 1}
   offsetColor: {r: 0.34462753, g: 0.6792453, b: 0.2716981, a: 1}
   spriteRenderer: {fileID: 3967387912005327127}
   highlight: {fileID: 4523322769146221921}
-  TowerSelectManager: {fileID: 1582141829997411395, guid: 32a4847164537904da1e6627f0ea7e88, type: 3}
+  TowerSelectorController: {fileID: 0}
 --- !u!61 &8639398429031623884
 BoxCollider2D:
   m_ObjectHideFlags: 0
