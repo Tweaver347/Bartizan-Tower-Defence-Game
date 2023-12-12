@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     private float targetRadius = 0.5f;
     private float moveSpeed = 0.1f;
 
+    private int currentWayPointIndex = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,10 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         //moveOnPath(path);
+        if(path != null && currentWayPointIndex < path.Count)
+        {
+            move();
+        }
 
     }
 
@@ -32,21 +38,24 @@ public class Enemy : MonoBehaviour
             return;
         }
         this.path = path;
-        moveOnPath(this.path);
+        //moveOnPath(this.path);
     }
 
-    private void moveOnPath(List<Vector3> path)
+    private void move()
     {
-        if (path == null)
+        Vector3 targetPosition = path[currentWayPointIndex];
+        float step = moveSpeed * Time.deltaTime;
+
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+
+        if (Vector3.Distance(transform.position, targetPosition) < targetRadius)
         {
-            Debug.LogError("Path is not initialized. Make sure to call setup() before moveOnPath().");
-            return;
-        }
-        for (int i = 0; i < path.Count - 1; i++)
-        {
-            Debug.Log("Moving to: " + path[i]);
-            Vector3 target = path[i];
-            KinematicArrive(target);
+            currentWayPointIndex++;
+
+            if(currentWayPointIndex >= path.Count)
+            {
+                currentWayPointIndex = 0;
+            }
         }
 
     }

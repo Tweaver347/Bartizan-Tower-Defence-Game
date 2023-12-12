@@ -6,6 +6,8 @@ using UnityEngine.Events;
 public class EnemySpawnManager : MonoBehaviour
 {
     [SerializeField] GameObject[] enemyPrefabs;
+    
+    private Transform spawnLocation;
 
     private int baseEnemies = 5;
     private float enemiesPerSecond = 0.5f;
@@ -17,6 +19,9 @@ public class EnemySpawnManager : MonoBehaviour
     private int enemiesAlive;
     private int enemiesLeftToSpawn;
     private bool isSpawning = false;
+
+    private GameObject spawnedEnemy;
+    private List<Vector3> enemy_Path;
 
     public static UnityEvent onEnemyDestroy = new UnityEvent();
 
@@ -30,6 +35,12 @@ public class EnemySpawnManager : MonoBehaviour
     {
         // Temp before will turn into a method where the player can start the first round
         StartCoroutine(StartWave());
+    }
+
+    public void setPath(List<Vector3> path, GameObject start)
+    {
+        enemy_Path = path;
+        spawnLocation = start.GetComponent<Transform>();
     }
 
     private void Update()
@@ -78,7 +89,8 @@ public class EnemySpawnManager : MonoBehaviour
     private void SpawnEnemy()
     {
         GameObject prefabToSpawn = enemyPrefabs[0];
-        Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
+        spawnedEnemy =  Instantiate(prefabToSpawn, spawnLocation.GetComponent<Transform>().position, Quaternion.identity);
+        spawnedEnemy.GetComponent<Enemy>().setup(enemy_Path);
     }
 
     private void OnEnemyDestroyed()
