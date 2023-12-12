@@ -8,21 +8,22 @@ public class Enemy : MonoBehaviour
     private Transform myTransform;
     private List<Vector3> path;
     private float targetRadius = 0.5f;
-    private float moveSpeed = 0.1f;
-
+    [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private GameObject trashcan;
     private int currentWayPointIndex = 0;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        trashcan = GameObject.Find("TrashCan");
         myTransform = this.gameObject.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(path != null && currentWayPointIndex < path.Count)
+        if (path != null && currentWayPointIndex < path.Count)
         {
             move();
         }
@@ -45,18 +46,13 @@ public class Enemy : MonoBehaviour
         float step = moveSpeed * Time.deltaTime;
 
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
-
         if (Vector3.Distance(transform.position, targetPosition) < targetRadius)
         {
+            // follow path
             currentWayPointIndex++;
-
-            if(currentWayPointIndex >= path.Count)
-            {
-                currentWayPointIndex = 0;
-            }
         }
 
     }
 
-    
+
 }

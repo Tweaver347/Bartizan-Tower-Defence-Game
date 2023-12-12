@@ -193,7 +193,8 @@ MonoBehaviour:
   offsetColor: {r: 0.34462753, g: 0.6792453, b: 0.2716981, a: 1}
   spriteRenderer: {fileID: 3967387912005327127}
   highlight: {fileID: 4523322769146221921}
-  TowerSelectorController: {fileID: 0}
+  Tower: {fileID: 3434096609961025109, guid: dd6de4808f7c6354fb61056371fbd2d9, type: 3}
+  GameManager: {fileID: 0}
 --- !u!61 &8639398429031623884
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -209,7 +210,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

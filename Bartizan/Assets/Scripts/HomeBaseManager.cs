@@ -5,15 +5,21 @@ using UnityEngine.UI;
 
 public class HomeBaseManager : MonoBehaviour
 {
+    GameObject GameManager;
     public Image healthBar;
 
     [SerializeField] private float startHealth;
     [SerializeField] private float currHealth;
     [SerializeField] private float fillAmt;
 
+    private void Awake()
+    {
+        GameManager = GameObject.Find("GameManager");
+    }
+
     private void Start()
     {
-        startHealth = 100;
+        startHealth = GameManager.GetComponent<GameManager>().getLives();
         currHealth = startHealth;
         fillAmt = 1;
     }
@@ -22,14 +28,15 @@ public class HomeBaseManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            
+
             // get the health of the enemy and subtract it from the health of the HomeBase
-            currHealth = currHealth - 10; // temp dmg
+            GameManager.GetComponent<GameManager>().setLives((int)currHealth - 1);
+            currHealth = currHealth - 1; // temp dmg
             Debug.Log("An Enemy has Attacked your home base! The Current health of your base is: " + currHealth);
             if (currHealth == 0)
             {
                 Debug.Log("Your Base has been Destroyed!");
-                // GameManager.GameOver();
+                GameManager.GetComponent<GameManager>().GameOver();
             }
 
             if (fillAmt >= .8)
@@ -48,13 +55,12 @@ public class HomeBaseManager : MonoBehaviour
             fillAmt = currHealth / startHealth;
             // change health bar color based on how much damage has been taken
 
-
             // update health bar of home base
-            healthBar.fillAmount = (currHealth/startHealth);
+            healthBar.fillAmount = (currHealth / startHealth);
 
             //Tell the Spawner that an Enemy has been destoryed
             EnemySpawnManager.onEnemyDestroy.Invoke();
- 
+
             Destroy(collision.gameObject); // Destory the Enemy
         }
     }
