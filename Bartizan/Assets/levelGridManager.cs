@@ -12,6 +12,9 @@ public class levelGridManager : MonoBehaviour
     [SerializeField] private Tile start;
     [SerializeField] private Tile end;
 
+    [SerializeField] private GameObject ESM;
+    private EnemySpawnManager enemySpawnManager;
+
 
 
     private void Start()
@@ -24,10 +27,14 @@ public class levelGridManager : MonoBehaviour
         start = grid[0, 0].GetComponent<Tile>();
         end = grid[width - 1, height - 1].GetComponent<Tile>();
 
-
+        enemySpawnManager = ESM.GetComponent<EnemySpawnManager>();
         // find the path from start to end
         List<Tile> path = A_Star(grid, start, end);
+
+        List<Vector3> enemy_Path = getPath_Vector3(path);
+
         // provide path to enemy spawner
+        enemySpawnManager.setPath(enemy_Path, grid[0, 0]);
 
 
     }
@@ -229,5 +236,18 @@ public class levelGridManager : MonoBehaviour
         end.GetComponent<SpriteRenderer>().color = Color.blue;
 
         return path;
+    }
+
+    private List<Vector3> getPath_Vector3(List<Tile> path)
+    {
+        List<Vector3> enemy_path = new List<Vector3>();
+        Vector3 tilePosition = Vector3.zero;
+        foreach (Tile tile in path)
+        {
+            tilePosition = tile.GetComponent<Transform>().position;
+            enemy_path.Add(tilePosition);
+        }
+
+        return enemy_path;
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9106078961600722151}
   - component: {fileID: 6138692482228579923}
   - component: {fileID: 5807318687498605098}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 39.051357, y: 2.2976549, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
