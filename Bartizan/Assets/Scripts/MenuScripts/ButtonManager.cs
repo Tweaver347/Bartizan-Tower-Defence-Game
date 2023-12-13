@@ -20,6 +20,10 @@ public class ButtonManager : MonoBehaviour
         Debug.Log("Going to Level Select!");
     }
 
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
     public void GoToLevel(int levelID)
     {
         // load scene by index

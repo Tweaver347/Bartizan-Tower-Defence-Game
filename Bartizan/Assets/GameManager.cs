@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject spawner;
     [SerializeField] private int winningRound = 3;
 
+    // Panels for Gameover and Win condtions
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject winPanel;
+
     public void Awake()
     {
         setGold(gold);
@@ -27,17 +31,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            beginRound();
-        }
-
         if (lives == 0)
         {
             loseLevel();
         }
 
-        if (spawner.GetComponent<EnemySpawnManager>().getCurrWave() == winningRound)
+        if (spawner.GetComponent<EnemySpawnManager>().getCurrWave() == winningRound && spawner.GetComponent<EnemySpawnManager>().getEnemiesAlive() == 0 && lives > 0)
         {
             winLevel();
         }
@@ -55,11 +54,16 @@ public class GameManager : MonoBehaviour
     public void loseLevel()
     {
         Debug.Log("Game Over");
+        spawner.SetActive(false);
+        gameOverPanel.SetActive(true);
     }
 
     public void winLevel()
     {
         Debug.Log("You Win!");
+        spawner.SetActive(false);
+        winPanel.SetActive(true);
+
     }
 
     // gold methods

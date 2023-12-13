@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Enemy : MonoBehaviour
 {
@@ -12,10 +14,18 @@ public class Enemy : MonoBehaviour
     private int currentWayPointIndex = 0;
 
     [SerializeField] GameObject GM;
+    [SerializeField] GameObject enemySpawnManager;
     private GameManager gameManager;
 
     [SerializeField] private int gold_Amount;
     [SerializeField] private int health = 10;
+
+
+    // Variables for the Health Bar
+    public Image healthBar;
+    [SerializeField] private float startHealth;
+    [SerializeField] private float currHealth;
+    [SerializeField] private float fillAmt;
 
 
     // Start is called before the first frame update
@@ -23,6 +33,10 @@ public class Enemy : MonoBehaviour
     {
         myTransform = this.gameObject.transform;
         gameManager = GM.GetComponent<GameManager>();
+
+        startHealth = health;
+        currHealth = startHealth;
+        fillAmt = 1;
     }
 
     // Update is called once per frame
@@ -62,6 +76,7 @@ public class Enemy : MonoBehaviour
     private void dead()
     {
         //gameManager.addGold(gold_Amount);
+        EnemySpawnManager.onEnemyDestroy.Invoke();
         Destroy(gameObject);
 
     }
@@ -69,6 +84,24 @@ public class Enemy : MonoBehaviour
     public void takeDamage(int amount)
     {
         health = health - amount;
+        currHealth = currHealth - amount;
+
+
+        if (fillAmt >= .8)
+        {
+            healthBar.color = Color.green;
+        }
+        else if (fillAmt >= .5)
+        {
+            healthBar.color = new Color32(0xFF, 0xA5, 0x00, 0xFF); // orange
+        }
+        else
+        {
+            healthBar.color = Color.red;
+        }
+        fillAmt = currHealth / startHealth;
+        healthBar.fillAmount = (currHealth / startHealth);
+
 
         if (health <= 0)
         {

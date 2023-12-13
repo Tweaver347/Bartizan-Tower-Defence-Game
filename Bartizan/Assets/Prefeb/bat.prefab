@@ -145,10 +145,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe18b33efc7659a43bbea50714bb3547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  trashcan: {fileID: 0}
+  moveSpeed: 2.5
   GM: {fileID: 8553056504492693591, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
+  enemySpawnManager: {fileID: 0}
   gold_Amount: 1
+  health: 10
+  healthBar: {fileID: 8917907465294006606}
+  startHealth: 0
+  currHealth: 0
+  fillAmt: 0
 --- !u!50 &-2614296298165773804
 Rigidbody2D:
   serializedVersion: 4
@@ -294,3 +299,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3187373529339064586, guid: 458f2c2a358e99b4dbda59a83171c22f, type: 3}
   m_PrefabInstance: {fileID: 8821067460760021144}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8917907465294006606 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 119485619381264854, guid: 458f2c2a358e99b4dbda59a83171c22f, type: 3}
+  m_PrefabInstance: {fileID: 8821067460760021144}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -13,28 +13,42 @@ public class Tower : MonoBehaviour
     private float targetingRange = 3f;
 
     [SerializeField] private GameObject target;
-    [SerializeField] private int damage_Amount;
+    [SerializeField] private int damage_Amount = 1;
+
+    private float fireRate = 0.5f;
+    private float fireCountdown = 0f;
+
+    // attack sound effect
+    [SerializeField] private GameObject attackSoundGO;
+    private AudioSource attackSound;
+
+    private void Start()
+    {
+        attackSound = attackSoundGO.GetComponent<AudioSource>();
+    }
 
     private void Update()
     {
         if (target == null)
         {
             FindTarget();
-            return;
+        }
+        else
+        {
+            RotateTower();
+            if (fireCountdown < 0f)
+            {
+                attack();
+                fireCountdown = 1f / fireRate;
+                Debug.Log("fireCountdown: " + fireCountdown);
+
+            }
+            fireCountdown -= Time.deltaTime;
+            Debug.Log("fireCountdown: " + fireCountdown);
+
         }
 
-        RotateTower();
-        attack();
-
     }
-
-
-    private void OnDrawGizmosSelected()
-    {
-        Handles.color = Color.yellow;
-        Handles.DrawWireDisc(transform.position, transform.forward, targetingRange);
-    }
-
 
     private void FindTarget()
     {
@@ -60,6 +74,8 @@ public class Tower : MonoBehaviour
 
     private void attack()
     {
+        Debug.Log("Attacking");
+        attackSound.Play();
         target.GetComponent<Enemy>().takeDamage(damage_Amount);
     }
 

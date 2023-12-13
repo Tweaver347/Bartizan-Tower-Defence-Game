@@ -15,6 +15,7 @@ public class EnemySpawnManager : MonoBehaviour
     private float timeBetweenWaves = 3f;
     private float waveMultiplier = 0.75f;
 
+    [SerializeField] private TMPro.TextMeshProUGUI waveText;
     private int currWave = 1;
     private float timeSinceLastSpawn;
     private int enemiesAlive;
@@ -67,6 +68,7 @@ public class EnemySpawnManager : MonoBehaviour
         isSpawning = false;
         timeSinceLastSpawn = 0f;
         currWave++;
+        waveText.text = "Wave " + currWave;
         StartCoroutine(StartWave());
     }
 
@@ -106,5 +108,10 @@ public class EnemySpawnManager : MonoBehaviour
     public int getCurrWave()
     {
         return currWave;
+    }
+
+    public int getEnemiesAlive()
+    {
+        return enemiesAlive;
     }
 }
