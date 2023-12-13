@@ -33,6 +33,7 @@ public class Tower : MonoBehaviour
         Handles.DrawWireDisc(transform.position, transform.forward, targetingRange);
     }
 
+
     private void FindTarget()
     {
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2)transform.position, 0f, enemyLayer);
@@ -49,4 +50,12 @@ public class Tower : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle - 90f));
         TowerRotationPoint.rotation = Quaternion.Slerp(TowerRotationPoint.rotation, targetRotation, Time.deltaTime * 5f);
     }
+
+    // draw gizmos to show the range of the tower  
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, targetingRange);
+    }
 }
+

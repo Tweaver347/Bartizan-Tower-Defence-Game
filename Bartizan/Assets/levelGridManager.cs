@@ -4,18 +4,39 @@ using UnityEngine;
 
 public class levelGridManager : MonoBehaviour
 {
+    // Grid dimensions
+    [Header("Grid Dimensions")]
     [SerializeField] private int width, height;
+
+    // Prefabs
+    [Header("Prefabs")]
     [SerializeField] private GameObject tilePrefab;
     [SerializeField] private GameObject homePrefab;
 
+    // Camera
+    [Header("Camera")]
     [SerializeField] private Camera mainCamera;
+
+    // Grid
+    [Header("Grid")]
     private GameObject[,] grid;
 
+    // Start and end tiles
+    [Header("Start and End Tiles")]
+    [SerializeField] private int startX, startY, endX, endY; // serialized int x and y for start and end tiles
     [SerializeField] private Tile start;
     [SerializeField] private Tile end;
 
+    // Home base
+    [Header("Home Base")]
     public GameObject homeBase;
 
+    // Obstacles
+    [Header("Obstacles")]
+    [SerializeField] Vector2[] obstacles;
+
+    // Enemy spawn manager
+    [Header("Enemy Spawn Manager")]
     [SerializeField] private GameObject ESM;
     private EnemySpawnManager enemySpawnManager;
 
@@ -27,9 +48,38 @@ public class levelGridManager : MonoBehaviour
         grid = new GameObject[width, height];
         GenerateGrid();
 
+        // set obstacles
+        //manageGrid(grid); // redo nehighbours
+        foreach (Vector2 obstacle in obstacles)
+        {
+            Debug.Log("Obstacle: " + obstacle);
+            // clamp values of list
+            int x = (int)obstacle.x;
+            int y = (int)obstacle.y;
+            // set tile to false
+            grid[x, y].GetComponent<Tile>().setPathable(false);
+            // change color of tile to black
+            grid[x, y].GetComponent<SpriteRenderer>().color = Color.black;
+        }
+        manageGrid(grid); // redo nehighbours
+        // Clamp Start ints and End ints values within the grid
+        Debug.Log("Clamping Start and End values");
+        startX = Mathf.Clamp(startX, 0, width - 1);
+        startY = Mathf.Clamp(startY, 0, height - 1);
+
+        endX = Mathf.Clamp(endX, 0, width - 1);
+        endY = Mathf.Clamp(endY, 0, height - 1);
+
+        if (startX == endX && startY == endY)
+        {
+            Debug.Log("Start and End are the same. Changing End");
+            endX = Mathf.Clamp(endX + 1, 0, width - 1);
+            endY = Mathf.Clamp(endY + 1, 0, height - 1);
+        }
+
         // find the start and end tiles
-        start = grid[0, 0].GetComponent<Tile>();
-        end = grid[width - 1, height - 1].GetComponent<Tile>();
+        start = grid[startX, startY].GetComponent<Tile>();
+        end = grid[endX, endY].GetComponent<Tile>();
 
         enemySpawnManager = ESM.GetComponent<EnemySpawnManager>();
         // find the path from start to end

@@ -38,6 +38,8 @@ public class Tile : MonoBehaviour
         isPathable = false;
     }
 
+    public void setPathable(bool pathable) { isPathable = pathable; }
+
     public void setPrevious(Tile previous) { this.previous = previous; }
 
     public Tile getPrevious() { return previous; }

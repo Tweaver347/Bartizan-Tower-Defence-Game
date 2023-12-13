@@ -7,13 +7,17 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private int gold;
+    [SerializeField] private int gold; // amount seralized in editor
     // text field for gold
     [SerializeField] private TMPro.TextMeshProUGUI goldText;
 
-    [SerializeField] private int lives;
+    [SerializeField] private int lives; // amount seralized in editor
     // text field for lives
     [SerializeField] private TMPro.TextMeshProUGUI livesText;
+
+    // spawner
+    [SerializeField] private GameObject spawner;
+    [SerializeField] private int winningRound = 3;
 
     public void Awake()
     {
@@ -21,9 +25,41 @@ public class GameManager : MonoBehaviour
         setLives(lives);
     }
 
-    public void GameOver()
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            beginRound();
+        }
+
+        if (lives == 0)
+        {
+            loseLevel();
+        }
+
+        if (spawner.GetComponent<EnemySpawnManager>().getCurrWave() == winningRound)
+        {
+            winLevel();
+        }
+
+
+    }
+
+    public void beginRound()
+    {
+        Debug.Log("Begin Round");
+        spawner.GetComponent<EnemySpawnManager>().beginRound();
+
+    }
+
+    public void loseLevel()
     {
         Debug.Log("Game Over");
+    }
+
+    public void winLevel()
+    {
+        Debug.Log("You Win!");
     }
 
     // gold methods
