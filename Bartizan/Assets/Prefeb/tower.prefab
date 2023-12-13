@@ -102,7 +102,6 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
-  damage_Amount: 1
   target: {fileID: 0}
 --- !u!1 &4974765835946373169
 GameObject:

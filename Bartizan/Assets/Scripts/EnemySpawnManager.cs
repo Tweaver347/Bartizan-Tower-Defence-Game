@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class EnemySpawnManager : MonoBehaviour
 {
     [SerializeField] GameObject[] enemyPrefabs;
-    
-    private Transform spawnLocation;
+
+    [SerializeField] private Transform spawnLocation;
 
     private int baseEnemies = 5;
     private float enemiesPerSecond = 0.5f;
@@ -23,44 +24,41 @@ public class EnemySpawnManager : MonoBehaviour
     private GameObject spawnedEnemy;
     private List<Vector3> enemy_Path;
 
+    private bool startRound;
+
     public static UnityEvent onEnemyDestroy = new UnityEvent();
 
     private void Awake()
     {
         onEnemyDestroy.AddListener(OnEnemyDestroyed);
+        startRound = false;
 
     }
-
-    void Start()
-    {
-        // Temp before will turn into a method where the player can start the first round
-        StartCoroutine(StartWave());
-    }
-
     public void setPath(List<Vector3> path, GameObject start)
     {
         enemy_Path = path;
-        spawnLocation = start.GetComponent<Transform>();
     }
 
     private void Update()
     {
-        if (!isSpawning) return;
-
-        timeSinceLastSpawn += Time.deltaTime;
-
-        if(timeSinceLastSpawn >= (1/enemiesPerSecond) && enemiesLeftToSpawn > 0)
+        if (!isSpawning) return; // if not spawning, don't do anything
+        if (startRound) // if the round has started, spawn enemies
         {
-            Debug.Log("Spawn Enemy");
-            SpawnEnemy();
-            enemiesLeftToSpawn--;
-            enemiesAlive++;
-            timeSinceLastSpawn = 0;
-        }
+            timeSinceLastSpawn += Time.deltaTime;
 
-        if (enemiesAlive == 0 && enemiesLeftToSpawn == 0)
-        {
-            EndWave();
+            if (timeSinceLastSpawn >= (1 / enemiesPerSecond) && enemiesLeftToSpawn > 0)
+            {
+                Debug.Log("Spawn Enemy");
+                SpawnEnemy();
+                enemiesLeftToSpawn--;
+                enemiesAlive++;
+                timeSinceLastSpawn = 0;
+            }
+
+            if (enemiesAlive == 0 && enemiesLeftToSpawn == 0)
+            {
+                EndWave();
+            }
         }
     }
 
@@ -89,7 +87,7 @@ public class EnemySpawnManager : MonoBehaviour
     private void SpawnEnemy()
     {
         GameObject prefabToSpawn = enemyPrefabs[0];
-        spawnedEnemy =  Instantiate(prefabToSpawn, spawnLocation.GetComponent<Transform>().position, Quaternion.identity);
+        spawnedEnemy = Instantiate(prefabToSpawn, spawnLocation.GetComponent<Transform>().position, Quaternion.identity);
         spawnedEnemy.GetComponent<Enemy>().setup(enemy_Path);
     }
 
@@ -97,5 +95,16 @@ public class EnemySpawnManager : MonoBehaviour
     {
         Debug.Log("Enemy has been Destroyed (Invoke)");
         enemiesAlive--;
+    }
+
+    public void beginRound()
+    {
+        startRound = true;
+        StartCoroutine(StartWave());// start the first wave
+    }
+
+    public int getCurrWave()
+    {
+        return currWave;
     }
 }

@@ -4,18 +4,42 @@ using UnityEngine;
 
 public class levelGridManager : MonoBehaviour
 {
+    // Grid dimensions
+    [Header("Grid Dimensions")]
     [SerializeField] private int width, height;
+
+    // Prefabs
+    [Header("Prefabs")]
     [SerializeField] private GameObject tilePrefab;
     [SerializeField] private GameObject homePrefab;
 
+    // Camera
+    [Header("Camera")]
     [SerializeField] private Camera mainCamera;
+
+    // Grid
+    [Header("Grid")]
     private GameObject[,] grid;
 
+    // Start and end tiles
+    [Header("Start and End Tiles")]
+    [SerializeField] private int startX;
+    [SerializeField] private int startY;
+    [SerializeField] private int endX;
+    [SerializeField] private int endY; // serialized int x and y for start and end tiles
     [SerializeField] private Tile start;
     [SerializeField] private Tile end;
 
+    // Home base
+    [Header("Home Base")]
     public GameObject homeBase;
 
+    // Obstacles
+    [Header("Obstacles")]
+    [SerializeField] Vector2[] obstacles;
+
+    // Enemy spawn manager
+    [Header("Enemy Spawn Manager")]
     [SerializeField] private GameObject ESM;
     private EnemySpawnManager enemySpawnManager;
 
@@ -27,9 +51,38 @@ public class levelGridManager : MonoBehaviour
         grid = new GameObject[width, height];
         GenerateGrid();
 
+        // set obstacles
+        //manageGrid(grid); // redo nehighbours
+        foreach (Vector2 obstacle in obstacles)
+        {
+            Debug.Log("Obstacle: " + obstacle);
+            // clamp values of list
+            int x = (int)obstacle.x;
+            int y = (int)obstacle.y;
+            // set tile to false
+            grid[x, y].GetComponent<Tile>().setPathable(false);
+            // change color of tile to black
+            grid[x, y].GetComponent<SpriteRenderer>().color = Color.black;
+        }
+        manageGrid(grid); // redo nehighbours
+        // Clamp Start ints and End ints values within the grid
+        Debug.Log("Clamping Start and End values");
+        startX = Mathf.Clamp(startX, 0, width - 1);
+        startY = Mathf.Clamp(startY, 0, height - 1);
+
+        endX = Mathf.Clamp(endX, 0, width - 1);
+        endY = Mathf.Clamp(endY, 0, height - 1);
+
+        if (startX == endX && startY == endY)
+        {
+            Debug.Log("Start and End are the same. Changing End");
+            endX = Mathf.Clamp(endX + 1, 0, width - 1);
+            endY = Mathf.Clamp(endY + 1, 0, height - 1);
+        }
+
         // find the start and end tiles
-        start = grid[0, 0].GetComponent<Tile>();
-        end = grid[width - 1, height - 1].GetComponent<Tile>();
+        start = grid[startX, startY].GetComponent<Tile>();
+        end = grid[endX, endY].GetComponent<Tile>();
 
         enemySpawnManager = ESM.GetComponent<EnemySpawnManager>();
         // find the path from start to end
@@ -44,18 +97,6 @@ public class levelGridManager : MonoBehaviour
         enemySpawnManager.setPath(enemy_Path, grid[0, 0]);
 
 
-    }
-
-    public void updatePath()
-    {
-        Debug.Log("update path called");
-        manageGrid(grid);
-        List<Tile> path = A_Star(grid, start, end);
-
-        List<Vector3> enemy_Path = getPath_Vector3(path);
-
-        // provide path to enemy spawner
-        enemySpawnManager.setPath(enemy_Path, grid[0, 0]);
     }
 
     /// <summary>
@@ -103,7 +144,7 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i - 1, j].GetComponent<Tile>().isEmpty())
                     {
-                        //Debug.Log("adding top neighbour");
+                        Debug.Log("adding top neighbour");
                         neighbors.Add(grid[i - 1, j].GetComponent<Tile>());
                     }
 
@@ -113,7 +154,7 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i, j - 1].GetComponent<Tile>().isEmpty())
                     {
-                        //Debug.Log("adding left neighbour");
+                        Debug.Log("adding left neighbour");
                         neighbors.Add(grid[i, j - 1].GetComponent<Tile>());
                     }
 
@@ -123,7 +164,7 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i + 1, j].GetComponent<Tile>().isEmpty())
                     {
-                        //Debug.Log("adding bellow neighbour");
+                        Debug.Log("adding bellow neighbour");
                         neighbors.Add(grid[i + 1, j].GetComponent<Tile>());
                     }
 
@@ -133,7 +174,7 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i, j + 1].GetComponent<Tile>().isEmpty())
                     {
-                        //Debug.Log("adding right neighbour");
+                        Debug.Log("adding right neighbour");
                         neighbors.Add(grid[i, j + 1].GetComponent<Tile>());
                     }
 
@@ -187,7 +228,7 @@ public class levelGridManager : MonoBehaviour
     /// <returns></returns>
     public List<Tile> A_Star(GameObject[,] grid, Tile start, Tile end)
     {
-        Debug.Log("In A_Star");
+        Debug.Log("In find path");
         List<Tile> path = new List<Tile>();
 
         List<Tile> frontier = new List<Tile>();
@@ -198,20 +239,20 @@ public class levelGridManager : MonoBehaviour
         Tile startPoint = start;
         startPoint.setDistTo(0);
 
-        //Debug.Log("starting while loop");
+        Debug.Log("starting while loop");
         while (frontier.Count > 0)
         {
             Tile current = getClosestCell(frontier); //get the cell with lowest cost
             Tile[] neighbours = current.getNeighbours();
 
-            //Debug.Log("checking neighbours");
+            Debug.Log("checking neighbours");
             for (int i = 0; i < neighbours.Length; i++)
             {
                 Tile nextCell = neighbours[i];
 
                 if (!visited.Contains(nextCell) && !frontier.Contains(nextCell))
                 {
-                    //Debug.Log("setting prev");
+                    Debug.Log("setting prev");
                     nextCell.setPrevious(current);
                     nextCell.setDistTo(current.getDistTo() + 1);
                     nextCell.setDistFrom(calculateH(current, end));
@@ -224,8 +265,8 @@ public class levelGridManager : MonoBehaviour
 
             if (current == end)
             {
-                //Debug.Log("end found. Path:");
-                path.Add(current);
+                Debug.Log("end found. Path:");
+
                 while (current.getPrevious() != null)
                 {
 
@@ -241,26 +282,20 @@ public class levelGridManager : MonoBehaviour
 
 
         //Debug.Log("returning path: " + path);
-        //Debug.Log("path length:" + path.Count);
+        Debug.Log("path length:" + path.Count);
 
-        colorPath(path);
-        
-
-        return path;
-    }
-
-    private void colorPath(List<Tile> path)
-    {
         // for each tile in path change the tile color to red
         foreach (Tile tile in path)
         {
-            //Debug.Log("in for loop");
+            Debug.Log("in for loop");
             tile.GetComponent<SpriteRenderer>().color = Color.red;
         }
         // change the start tile color to blue
         start.GetComponent<SpriteRenderer>().color = Color.blue;
         // change the end tile color to blue
         end.GetComponent<SpriteRenderer>().color = Color.blue;
+
+        return path;
     }
 
     private List<Vector3> getPath_Vector3(List<Tile> path)

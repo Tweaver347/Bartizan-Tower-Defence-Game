@@ -7,7 +7,6 @@ TagManager:
   - Enemy
   - Home
   - Projectile
-  - Grid Printer
   layers:
   - Default
   - TransparentFX

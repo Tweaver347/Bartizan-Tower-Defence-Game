@@ -33,11 +33,6 @@ public class HomeBaseManager : MonoBehaviour
             GameManager.GetComponent<GameManager>().setLives((int)currHealth - 1);
             currHealth = currHealth - 1; // temp dmg
             Debug.Log("An Enemy has Attacked your home base! The Current health of your base is: " + currHealth);
-            if (currHealth == 0)
-            {
-                Debug.Log("Your Base has been Destroyed!");
-                GameManager.GetComponent<GameManager>().GameOver();
-            }
 
             if (fillAmt >= .8)
             {
