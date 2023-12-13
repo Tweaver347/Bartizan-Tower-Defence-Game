@@ -293,7 +293,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 998990345525322401, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
       propertyPath: gold
-      value: 200
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 998990345525322401, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
+      propertyPath: lives
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 998990345525322401, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
       propertyPath: spawner
@@ -313,7 +317,7 @@ PrefabInstance:
       objectReference: {fileID: 1169561612}
     - target: {fileID: 998990345525322401, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
       propertyPath: winningRound
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 998990345525322401, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
       propertyPath: gameOverPanel
