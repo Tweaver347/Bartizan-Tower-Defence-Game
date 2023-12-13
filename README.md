@@ -44,9 +44,3 @@ We welcome contributions to improve and expand Bartizan. If you have suggestions
 Neel Dadhania - Gameplay Programmer
 Hayden Le - Music and Sounds Design
 Thomas Weaver - UI and Level Design
-
-
-## Conclusion
-
-Embark on a journey of strategy and skill in the enchanting universe of Bartizan. Defend your home against relentless waves of enemies by strategically placing and upgrading towers. Dive into the immersive experience and safeguard your realm!
-
