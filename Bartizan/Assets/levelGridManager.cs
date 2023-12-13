@@ -126,6 +126,17 @@ public class levelGridManager : MonoBehaviour
         manageGrid(grid);
     }
 
+    public void updatePath()
+    {
+        manageGrid(grid);
+        List<Tile> path = A_Star(grid, start, end);
+
+        List<Vector3> enemy_Path = getPath_Vector3(path);
+
+        // provide path to enemy spawner
+        enemySpawnManager.setPath(enemy_Path, grid[0, 0]);
+    }
+
     /// <summary>
     /// Adds neighbors to each tile in the grid
     /// </summary>
@@ -266,7 +277,7 @@ public class levelGridManager : MonoBehaviour
             if (current == end)
             {
                 Debug.Log("end found. Path:");
-
+                path.Add(current);
                 while (current.getPrevious() != null)
                 {
 

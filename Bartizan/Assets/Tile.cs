@@ -23,6 +23,9 @@ public class Tile : MonoBehaviour
     [SerializeField] private GameObject highlight;
     [SerializeField] private GameObject Tower;
     [SerializeField] private GameObject GameManager;
+
+    
+    private levelGridManager levelGridManager;
     public void init(bool isOffset, int x, int y, bool pathable)
     {
         spriteRenderer.color = isOffset ? offsetColor : baseColor;
@@ -30,12 +33,14 @@ public class Tile : MonoBehaviour
         yLoc = y;
         isPathable = pathable;
         GameManager = GameObject.Find("GameManager");
+        levelGridManager = GameObject.FindGameObjectWithTag("Grid Painter").GetComponent<levelGridManager>();
     }
 
     public void setTower(GameObject tower)
     {
         spawnedTower = Instantiate(tower, this.transform.position, Quaternion.identity);
         isPathable = false;
+        levelGridManager.updatePath();
     }
 
     public void setPathable(bool pathable) { isPathable = pathable; }

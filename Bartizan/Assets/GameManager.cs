@@ -74,6 +74,11 @@ public class GameManager : MonoBehaviour
         return gold;
     }
 
+    public void addGold(int amount)
+    {
+        gold = gold + amount;
+    }
+
     // lives methods
     public void setLives(int livesAmt)
     {
