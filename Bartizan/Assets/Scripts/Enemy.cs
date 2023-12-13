@@ -8,17 +8,9 @@ public class Enemy : MonoBehaviour
     private Transform myTransform;
     private List<Vector3> path;
     private float targetRadius = 0.5f;
-
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private GameObject trashcan;
-    [SerializeField] private GameObject GM;
-    private GameManager gameManager;
-
     private int currentWayPointIndex = 0;
-    [SerializeField] int gold_Amount;
-
-    [SerializeField]
-    private int health = 10;
 
 
     // Start is called before the first frame update
@@ -26,7 +18,6 @@ public class Enemy : MonoBehaviour
     {
         trashcan = GameObject.Find("TrashCan");
         myTransform = this.gameObject.transform;
-        gameManager = GM.GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -65,18 +56,8 @@ public class Enemy : MonoBehaviour
 
     private void dead()
     {
-        gameManager.addGold(gold_Amount);
-        Destroy(gameObject);
+        //add 1 gold to the total gold count
     }
 
-    public void takeDamage(int amount)
-    {
-        health = health - amount;
-
-        if(health <= 0)
-        {
-            dead();
-        }
-    }
 
 }
