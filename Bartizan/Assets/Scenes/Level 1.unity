@@ -292,6 +292,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 998990345525322401, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
+      propertyPath: gold
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 998990345525322401, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
       propertyPath: spawner
       value: 
       objectReference: {fileID: 872012379}
@@ -309,7 +313,7 @@ PrefabInstance:
       objectReference: {fileID: 1169561612}
     - target: {fileID: 998990345525322401, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
       propertyPath: winningRound
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 998990345525322401, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
       propertyPath: gameOverPanel
@@ -693,8 +697,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 5555653196125625385, guid: f4e42c4fa9f9dff4e8a93acded318fef, type: 3}
+  - {fileID: 5555653196125625385, guid: b367f356a0be7884c8cd2bb57bc59bd7, type: 3}
+  - {fileID: 5555653196125625385, guid: ef676b6cbad181348bdf966d3444fe3c, type: 3}
   spawnLocation: {fileID: 872012380}
   waveText: {fileID: 962832319}
+  enemiesAlive: 0
+  enemiesLeftToSpawn: 0
 --- !u!1001 &915926259
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1011,7 +1019,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level Select
+  m_text: Next Level
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1173,12 +1181,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1210043614}
         m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
-        m_MethodName: GoToLevelSelect
-        m_Mode: 1
+        m_MethodName: GoToLevel
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1411,7 +1419,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Lives: '
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4d4aa5f66dc1c564ca25ad1075a910f6, type: 2}
   m_sharedMaterial: {fileID: -6618324539665588892, guid: 4d4aa5f66dc1c564ca25ad1075a910f6, type: 2}
@@ -2057,6 +2065,7 @@ MonoBehaviour:
   homeBase: {fileID: 0}
   obstacles: []
   ESM: {fileID: 872012379}
+  paintPath: []
 --- !u!4 &1583491388
 Transform:
   m_ObjectHideFlags: 0
@@ -2347,7 +2356,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Gold: '
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4d4aa5f66dc1c564ca25ad1075a910f6, type: 2}
   m_sharedMaterial: {fileID: -6618324539665588892, guid: 4d4aa5f66dc1c564ca25ad1075a910f6, type: 2}

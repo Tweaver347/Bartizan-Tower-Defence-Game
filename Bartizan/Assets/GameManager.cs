@@ -36,7 +36,9 @@ public class GameManager : MonoBehaviour
             loseLevel();
         }
 
-        if (spawner.GetComponent<EnemySpawnManager>().getCurrWave() == winningRound && spawner.GetComponent<EnemySpawnManager>().getEnemiesAlive() == 0 && lives > 0)
+        if (spawner.GetComponent<EnemySpawnManager>().getCurrWave() == winningRound + 1
+             && spawner.GetComponent<EnemySpawnManager>().getEnemiesAlive() == 0 && lives > 0
+             && spawner.GetComponent<EnemySpawnManager>().getEnemiesLeftToSpawn() == 0)
         {
             winLevel();
         }
@@ -46,21 +48,21 @@ public class GameManager : MonoBehaviour
 
     public void beginRound()
     {
-        Debug.Log("Begin Round");
+        //Debug.Log("Begin Round");
         spawner.GetComponent<EnemySpawnManager>().beginRound();
 
     }
 
     public void loseLevel()
     {
-        Debug.Log("Game Over");
+        //Debug.Log("Game Over");
         spawner.SetActive(false);
         gameOverPanel.SetActive(true);
     }
 
     public void winLevel()
     {
-        Debug.Log("You Win!");
+        //Debug.Log("You Win!");
         spawner.SetActive(false);
         winPanel.SetActive(true);
 
@@ -69,18 +71,15 @@ public class GameManager : MonoBehaviour
     // gold methods
     public void setGold(int goldAmt)
     {
+        //Debug.Log("gold is now: " + goldAmt + " from " + gold + " gold");
         gold = goldAmt;
-        goldText.text = "Gold: " + gold;
+        //Debug.Log("updating text");
+        goldText.text = "Gold: " + (int)gold;
     }
 
     public int getGold()
     {
         return gold;
-    }
-
-    public void addGold(int amount)
-    {
-        gold = gold + amount;
     }
 
     // lives methods

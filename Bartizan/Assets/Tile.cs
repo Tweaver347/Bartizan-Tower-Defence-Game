@@ -9,6 +9,7 @@ public class Tile : MonoBehaviour
     [Header("Tile Attributes")]
     [SerializeField] private int xLoc, yLoc;
     [SerializeField] private bool isPathable = true;
+    [SerializeField] private bool isOffset = false;
     [SerializeField] private GameObject tower;
     public GameObject spawnedTower;
 
@@ -24,10 +25,11 @@ public class Tile : MonoBehaviour
     [SerializeField] private GameObject Tower;
     [SerializeField] private GameObject GameManager;
 
-    
+
     private levelGridManager levelGridManager;
     public void init(bool isOffset, int x, int y, bool pathable)
     {
+        this.isOffset = isOffset;
         spriteRenderer.color = isOffset ? offsetColor : baseColor;
         xLoc = x;
         yLoc = y;
@@ -62,6 +64,10 @@ public class Tile : MonoBehaviour
     public int getDistFrom() { return distFrom; }
 
     public bool isEmpty() { return isPathable; }
+
+    public Color getBaseColor() { return baseColor; }
+    public Color getOffsetColor() { return offsetColor; }
+    public bool getIsOffset() { return isOffset; }
     public void getTilePosition()
     {
         Debug.Log("Tile position is: (" + xLoc + ", " + yLoc + ")");
@@ -111,6 +117,8 @@ public class Tile : MonoBehaviour
                 Debug.Log("No tower to sell");
             }
         }
+        // repaint path
+        levelGridManager.RepaintGrid();
     }
 
 }

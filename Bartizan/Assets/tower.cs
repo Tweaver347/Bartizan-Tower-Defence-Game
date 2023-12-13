@@ -10,7 +10,7 @@ public class Tower : MonoBehaviour
     [SerializeField] private Transform TowerRotationPoint;
     [SerializeField] private LayerMask enemyLayer;
 
-    private float targetingRange = 3f;
+    private float targetingRange = 2f;
 
     [SerializeField] private GameObject target;
     [SerializeField] private int damage_Amount = 1;
@@ -19,12 +19,12 @@ public class Tower : MonoBehaviour
     private float fireCountdown = 0f;
 
     // attack sound effect
-    [SerializeField] private GameObject attackSoundGO;
-    private AudioSource attackSound;
+    //[SerializeField] private GameObject attackSoundGO;
+    //private AudioSource attackSound;
 
     private void Start()
     {
-        attackSound = attackSoundGO.GetComponent<AudioSource>();
+        //attackSound = attackSoundGO.GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -40,11 +40,11 @@ public class Tower : MonoBehaviour
             {
                 attack();
                 fireCountdown = 1f / fireRate;
-                Debug.Log("fireCountdown: " + fireCountdown);
+                //Debug.Log("fireCountdown: " + fireCountdown);
 
             }
             fireCountdown -= Time.deltaTime;
-            Debug.Log("fireCountdown: " + fireCountdown);
+            //Debug.Log("fireCountdown: " + fireCountdown);
 
         }
 
@@ -74,8 +74,8 @@ public class Tower : MonoBehaviour
 
     private void attack()
     {
-        Debug.Log("Attacking");
-        attackSound.Play();
+        //Debug.Log("Attacking");
+        //attackSound.Play();
         target.GetComponent<Enemy>().takeDamage(damage_Amount);
     }
 

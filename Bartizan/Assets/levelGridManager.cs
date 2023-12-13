@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class levelGridManager : MonoBehaviour
@@ -43,6 +44,8 @@ public class levelGridManager : MonoBehaviour
     [SerializeField] private GameObject ESM;
     private EnemySpawnManager enemySpawnManager;
 
+    public List<Tile> paintPath = new List<Tile>();
+
 
 
     private void Start()
@@ -55,7 +58,7 @@ public class levelGridManager : MonoBehaviour
         //manageGrid(grid); // redo nehighbours
         foreach (Vector2 obstacle in obstacles)
         {
-            Debug.Log("Obstacle: " + obstacle);
+            // Debug.Log("Obstacle: " + obstacle);
             // clamp values of list
             int x = (int)obstacle.x;
             int y = (int)obstacle.y;
@@ -66,7 +69,7 @@ public class levelGridManager : MonoBehaviour
         }
         manageGrid(grid); // redo nehighbours
         // Clamp Start ints and End ints values within the grid
-        Debug.Log("Clamping Start and End values");
+        //Debug.Log("Clamping Start and End values");
         startX = Mathf.Clamp(startX, 0, width - 1);
         startY = Mathf.Clamp(startY, 0, height - 1);
 
@@ -75,7 +78,7 @@ public class levelGridManager : MonoBehaviour
 
         if (startX == endX && startY == endY)
         {
-            Debug.Log("Start and End are the same. Changing End");
+            //Debug.Log("Start and End are the same. Changing End");
             endX = Mathf.Clamp(endX + 1, 0, width - 1);
             endY = Mathf.Clamp(endY + 1, 0, height - 1);
         }
@@ -155,7 +158,7 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i - 1, j].GetComponent<Tile>().isEmpty())
                     {
-                        Debug.Log("adding top neighbour");
+                        //Debug.Log("adding top neighbour");
                         neighbors.Add(grid[i - 1, j].GetComponent<Tile>());
                     }
 
@@ -165,7 +168,7 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i, j - 1].GetComponent<Tile>().isEmpty())
                     {
-                        Debug.Log("adding left neighbour");
+                        //Debug.Log("adding left neighbour");
                         neighbors.Add(grid[i, j - 1].GetComponent<Tile>());
                     }
 
@@ -175,7 +178,7 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i + 1, j].GetComponent<Tile>().isEmpty())
                     {
-                        Debug.Log("adding bellow neighbour");
+                        //Debug.Log("adding bellow neighbour");
                         neighbors.Add(grid[i + 1, j].GetComponent<Tile>());
                     }
 
@@ -185,7 +188,7 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i, j + 1].GetComponent<Tile>().isEmpty())
                     {
-                        Debug.Log("adding right neighbour");
+                        //Debug.Log("adding right neighbour");
                         neighbors.Add(grid[i, j + 1].GetComponent<Tile>());
                     }
 
@@ -239,7 +242,7 @@ public class levelGridManager : MonoBehaviour
     /// <returns></returns>
     public List<Tile> A_Star(GameObject[,] grid, Tile start, Tile end)
     {
-        Debug.Log("In find path");
+        //Debug.Log("In find path");
         List<Tile> path = new List<Tile>();
 
         List<Tile> frontier = new List<Tile>();
@@ -250,20 +253,20 @@ public class levelGridManager : MonoBehaviour
         Tile startPoint = start;
         startPoint.setDistTo(0);
 
-        Debug.Log("starting while loop");
+        //Debug.Log("starting while loop");
         while (frontier.Count > 0)
         {
             Tile current = getClosestCell(frontier); //get the cell with lowest cost
             Tile[] neighbours = current.getNeighbours();
 
-            Debug.Log("checking neighbours");
+            //Debug.Log("checking neighbours");
             for (int i = 0; i < neighbours.Length; i++)
             {
                 Tile nextCell = neighbours[i];
 
                 if (!visited.Contains(nextCell) && !frontier.Contains(nextCell))
                 {
-                    Debug.Log("setting prev");
+                    //Debug.Log("setting prev");
                     nextCell.setPrevious(current);
                     nextCell.setDistTo(current.getDistTo() + 1);
                     nextCell.setDistFrom(calculateH(current, end));
@@ -276,7 +279,7 @@ public class levelGridManager : MonoBehaviour
 
             if (current == end)
             {
-                Debug.Log("end found. Path:");
+                //Debug.Log("end found. Path:");
                 path.Add(current);
                 while (current.getPrevious() != null)
                 {
@@ -288,23 +291,25 @@ public class levelGridManager : MonoBehaviour
                 break;
             }
         }
-        Debug.Log("path found. revercing it.");
+        //Debug.Log("path found. revercing it.");
         path.Reverse();
 
 
         //Debug.Log("returning path: " + path);
-        Debug.Log("path length:" + path.Count);
+        //Debug.Log("path length:" + path.Count);
 
         // for each tile in path change the tile color to red
         foreach (Tile tile in path)
         {
-            Debug.Log("in for loop");
+            //Debug.Log("in for loop");
             tile.GetComponent<SpriteRenderer>().color = Color.red;
         }
         // change the start tile color to blue
         start.GetComponent<SpriteRenderer>().color = Color.blue;
         // change the end tile color to blue
         end.GetComponent<SpriteRenderer>().color = Color.blue;
+
+        paintPath = path;
 
         return path;
     }
@@ -320,5 +325,38 @@ public class levelGridManager : MonoBehaviour
         }
 
         return enemy_path;
+    }
+
+    public void RepaintGrid()
+    {
+        foreach (GameObject tile in grid)
+        {
+            // if the tile is not pathable chage it to gray
+            // if the tile is pathable change it back to the correct green color
+
+            if (tile.GetComponent<Tile>().isEmpty())
+            {
+                if (tile.GetComponent<Tile>().getIsOffset())
+                {
+                    tile.GetComponent<SpriteRenderer>().color = tile.GetComponent<Tile>().getOffsetColor();
+                }
+                else
+                {
+                    tile.GetComponent<SpriteRenderer>().color = tile.GetComponent<Tile>().getBaseColor();
+                }
+            }
+            else if (!tile.GetComponent<Tile>().isEmpty())
+            {
+                tile.GetComponent<SpriteRenderer>().color = Color.gray;
+            }
+            // if the tile is in the path repaint it red
+            if (paintPath.Contains(tile.GetComponent<Tile>()))
+            {
+                tile.GetComponent<SpriteRenderer>().color = Color.red;
+            }
+        }
+        // change the start and end tile color to blue
+        start.GetComponent<SpriteRenderer>().color = Color.blue;
+        end.GetComponent<SpriteRenderer>().color = Color.blue;
     }
 }

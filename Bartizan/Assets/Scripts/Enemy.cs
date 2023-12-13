@@ -14,7 +14,6 @@ public class Enemy : MonoBehaviour
     private int currentWayPointIndex = 0;
 
     [SerializeField] GameObject GM;
-    [SerializeField] GameObject enemySpawnManager;
     private GameManager gameManager;
 
     [SerializeField] private int gold_Amount;
@@ -32,6 +31,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         myTransform = this.gameObject.transform;
+        GM = GameObject.Find("GameManager");
         gameManager = GM.GetComponent<GameManager>();
 
         startHealth = health;
@@ -75,7 +75,8 @@ public class Enemy : MonoBehaviour
 
     private void dead()
     {
-        //gameManager.addGold(gold_Amount);
+        Debug.Log("Enemy Dead adding gold" + gold_Amount);
+        gameManager.setGold(gold_Amount + gameManager.getGold());
         EnemySpawnManager.onEnemyDestroy.Invoke();
         Destroy(gameObject);
 

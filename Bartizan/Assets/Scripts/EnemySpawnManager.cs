@@ -13,13 +13,15 @@ public class EnemySpawnManager : MonoBehaviour
     private int baseEnemies = 5;
     private float enemiesPerSecond = 0.5f;
     private float timeBetweenWaves = 3f;
-    private float waveMultiplier = 0.75f;
+    private float waveMultiplier = 1f;
 
     [SerializeField] private TMPro.TextMeshProUGUI waveText;
     private int currWave = 1;
     private float timeSinceLastSpawn;
-    private int enemiesAlive;
-    private int enemiesLeftToSpawn;
+    public int enemiesAlive;
+
+    private int numBats, numGolem, numBoss;
+    public int enemiesLeftToSpawn;
     private bool isSpawning = false;
 
     private GameObject spawnedEnemy;
@@ -32,7 +34,6 @@ public class EnemySpawnManager : MonoBehaviour
     private void Awake()
     {
         onEnemyDestroy.AddListener(OnEnemyDestroyed);
-        startRound = false;
 
     }
     public void setPath(List<Vector3> path, GameObject start)
@@ -51,12 +52,10 @@ public class EnemySpawnManager : MonoBehaviour
             {
                 Debug.Log("Spawn Enemy");
                 SpawnEnemy();
-                enemiesLeftToSpawn--;
-                enemiesAlive++;
                 timeSinceLastSpawn = 0;
             }
 
-            if (enemiesAlive == 0 && enemiesLeftToSpawn == 0)
+            if (enemiesAlive <= 0 && enemiesLeftToSpawn == 0)
             {
                 EndWave();
             }
@@ -79,6 +78,11 @@ public class EnemySpawnManager : MonoBehaviour
         Debug.Log("Starting New Wave this is Wave: " + currWave);
         isSpawning = true;
         enemiesLeftToSpawn = CalculateEnemiesPerWave();
+        // if its a boss round add 1 boss for each 5 waves
+        if (currWave % 5 == 0)
+        {
+            numBoss = currWave / 5;
+        }
     }
 
     private int CalculateEnemiesPerWave()
@@ -88,14 +92,27 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        GameObject prefabToSpawn = enemyPrefabs[0];
+        GameObject prefabToSpawn = enemyPrefabs[Random.Range(0, 2)];
+        enemiesAlive++;
+        enemiesLeftToSpawn--;
         spawnedEnemy = Instantiate(prefabToSpawn, spawnLocation.GetComponent<Transform>().position, Quaternion.identity);
         spawnedEnemy.GetComponent<Enemy>().setup(enemy_Path);
+
+        if (numBoss > 0)
+        {
+            numBoss--;
+            enemiesAlive++;
+            prefabToSpawn = enemyPrefabs[2];
+            spawnedEnemy = Instantiate(prefabToSpawn, spawnLocation.GetComponent<Transform>().position, Quaternion.identity);
+            spawnedEnemy.GetComponent<Enemy>().setup(enemy_Path);
+
+        }
+
     }
 
     private void OnEnemyDestroyed()
     {
-        Debug.Log("Enemy has been Destroyed (Invoke)");
+        //Debug.Log("Enemy has been Destroyed (Invoke)");
         enemiesAlive--;
     }
 
@@ -113,5 +130,10 @@ public class EnemySpawnManager : MonoBehaviour
     public int getEnemiesAlive()
     {
         return enemiesAlive;
+    }
+
+    public int getEnemiesLeftToSpawn()
+    {
+        return enemiesLeftToSpawn;
     }
 }

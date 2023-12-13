@@ -103,7 +103,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -145,11 +145,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe18b33efc7659a43bbea50714bb3547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2.5
+  moveSpeed: 1.4
   GM: {fileID: 8553056504492693591, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
-  enemySpawnManager: {fileID: 0}
-  gold_Amount: 1
-  health: 10
+  gold_Amount: 10
+  health: 2
   healthBar: {fileID: 8917907465294006606}
   startHealth: 0
   currHealth: 0
