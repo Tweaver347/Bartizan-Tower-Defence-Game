@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     private int currentWayPointIndex = 0;
     [SerializeField] int gold_Amount;
 
+    [SerializeField]
     private int health = 10;
 
 
@@ -65,6 +66,7 @@ public class Enemy : MonoBehaviour
     private void dead()
     {
         gameManager.addGold(gold_Amount);
+        Destroy(gameObject);
     }
 
     public void takeDamage(int amount)

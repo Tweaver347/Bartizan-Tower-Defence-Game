@@ -24,6 +24,7 @@ public class Tower : MonoBehaviour
         }
 
         RotateTower();
+        attack();
 
     }
 

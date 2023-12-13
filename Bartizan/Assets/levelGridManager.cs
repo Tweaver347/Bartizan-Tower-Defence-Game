@@ -49,6 +49,7 @@ public class levelGridManager : MonoBehaviour
     public void updatePath()
     {
         Debug.Log("update path called");
+        manageGrid(grid);
         List<Tile> path = A_Star(grid, start, end);
 
         List<Vector3> enemy_Path = getPath_Vector3(path);
