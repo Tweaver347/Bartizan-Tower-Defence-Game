@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     private Transform myTransform;
     private List<Vector3> path;
     private float targetRadius = 0.5f;
+    [SerializeField]
     private float moveSpeed = 0.1f;
 
     private int currentWayPointIndex = 0;
