@@ -6,11 +6,15 @@ public class levelGridManager : MonoBehaviour
 {
     [SerializeField] private int width, height;
     [SerializeField] private GameObject tilePrefab;
+    [SerializeField] private GameObject homePrefab;
+
     [SerializeField] private Camera mainCamera;
     private GameObject[,] grid;
 
     [SerializeField] private Tile start;
     [SerializeField] private Tile end;
+
+    public GameObject homeBase;
 
     [SerializeField] private GameObject ESM;
     private EnemySpawnManager enemySpawnManager;
@@ -29,6 +33,9 @@ public class levelGridManager : MonoBehaviour
 
         enemySpawnManager = ESM.GetComponent<EnemySpawnManager>();
         // find the path from start to end
+
+        //instantiate homebase at end
+        homeBase = Instantiate(homePrefab, end.transform.position, Quaternion.identity);
         List<Tile> path = A_Star(grid, start, end);
 
         List<Vector3> enemy_Path = getPath_Vector3(path);
@@ -222,7 +229,7 @@ public class levelGridManager : MonoBehaviour
 
 
         //Debug.Log("returning path: " + path);
-        Debug.Log("path length:" +  path.Count);
+        Debug.Log("path length:" + path.Count);
 
         // for each tile in path change the tile color to red
         foreach (Tile tile in path)

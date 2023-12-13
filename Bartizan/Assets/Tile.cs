@@ -10,6 +10,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private int xLoc, yLoc;
     [SerializeField] private bool isPathable = true;
     [SerializeField] private GameObject tower;
+    public GameObject spawnedTower;
 
     [Header("A* Attributes")]
     [SerializeField] private int distTo, distFrom;
@@ -20,20 +21,20 @@ public class Tile : MonoBehaviour
     [SerializeField] private Color baseColor, offsetColor;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private GameObject highlight;
-    [SerializeField] private GameObject TowerSelectorController;
+    [SerializeField] private GameObject Tower;
+    [SerializeField] private GameObject GameManager;
     public void init(bool isOffset, int x, int y, bool pathable)
     {
         spriteRenderer.color = isOffset ? offsetColor : baseColor;
         xLoc = x;
         yLoc = y;
-        TowerSelectorController = GameObject.Find("TowerSelectorController");
         isPathable = pathable;
+        GameManager = GameObject.Find("GameManager");
     }
 
     public void setTower(GameObject tower)
     {
-        Instantiate(tower, this.transform.position, Quaternion.identity);
-        this.tower = tower;
+        spawnedTower = Instantiate(tower, this.transform.position, Quaternion.identity);
         isPathable = false;
     }
 
@@ -71,9 +72,38 @@ public class Tile : MonoBehaviour
 
     void OnMouseDown()
     {
-        getTilePosition();
-        bool hasTower = tower != null;
-        TowerSelectorController.GetComponent<TowerSelectManager>().handleGridClicked(hasTower);
+        int gold = GameManager.GetComponent<GameManager>().getGold();
+        // if left mouse button is clicled then buy tower
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (gold >= 100 && isPathable)
+            {
+                setTower(Tower);
+                GameManager.GetComponent<GameManager>().setGold(gold - 100);
+
+                // Update the grid
+            }
+            else
+            {
+                Debug.Log("Not enough gold to buy tower");
+            }
+        }
+        // if right mouse button is clicked then sell tower
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (spawnedTower != null)
+            {
+                Destroy(spawnedTower);
+                isPathable = true;
+                GameManager.GetComponent<GameManager>().setGold(gold + 75);
+
+                // Update the grid
+            }
+            else
+            {
+                Debug.Log("No tower to sell");
+            }
+        }
     }
 
 }
