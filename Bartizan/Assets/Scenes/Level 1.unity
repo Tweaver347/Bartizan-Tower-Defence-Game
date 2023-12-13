@@ -395,6 +395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 5555653196125625385, guid: f4e42c4fa9f9dff4e8a93acded318fef, type: 3}
+  spawnLocation: {fileID: 0}
 --- !u!1001 &915926259
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -690,7 +691,7 @@ GameObject:
   - component: {fileID: 1583491387}
   m_Layer: 7
   m_Name: GirdPainter
-  m_TagString: Untagged
+  m_TagString: Grid Painter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -714,20 +715,12 @@ MonoBehaviour:
   mainCamera: {fileID: 1239772884}
   startX: 0
   startY: 0
-  endX: 10
-  endY: 10
+  endX: 0
+  endY: 0
   start: {fileID: 0}
   end: {fileID: 0}
   homeBase: {fileID: 0}
-  obstacles:
-  - {x: 2, y: 3}
-  - {x: 2, y: 4}
-  - {x: 3, y: 3}
-  - {x: 3, y: 4}
-  - {x: 6, y: 3}
-  - {x: 6, y: 4}
-  - {x: 7, y: 3}
-  - {x: 7, y: 4}
+  obstacles: []
   ESM: {fileID: 872012379}
 --- !u!4 &1583491388
 Transform:
