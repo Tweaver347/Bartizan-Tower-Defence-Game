@@ -13,8 +13,7 @@ Bartizan is an immersive tower defense game where players strategically position
 In Bartizan, players must:
 
 - Strategically position and upgrade towers to fend off waves of enemies.
-- Utilize a variety of tower types, each with unique abilities and advantages.
-- Earn coins by defeating enemies, enabling you to acquire new towers or reinforce existing ones.
+- Utilize towers to earn coins by defeating enemies, enabling you to acquire new towers or reinforce existing ones.
 - Create obstacles and divert enemy paths by smartly placing towers on a grid-based terrain.
 
 ## Level Design
