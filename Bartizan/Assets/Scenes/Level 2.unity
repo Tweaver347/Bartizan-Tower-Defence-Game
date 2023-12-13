@@ -293,7 +293,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 998990345525322401, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
       propertyPath: gold
-      value: 200
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 998990345525322401, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
       propertyPath: spawner
@@ -1139,7 +1139,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2017,10 +2017,10 @@ MonoBehaviour:
   end: {fileID: 0}
   homeBase: {fileID: 0}
   obstacles:
-  - {x: 3, y: 2}
-  - {x: 2, y: 3}
-  - {x: 4, y: 3}
-  - {x: 3, y: 4}
+  - {x: 1, y: 4}
+  - {x: 2, y: 5}
+  - {x: 4, y: 1}
+  - {x: 5, y: 2}
   ESM: {fileID: 872012379}
   paintPath: []
 --- !u!4 &1583491388

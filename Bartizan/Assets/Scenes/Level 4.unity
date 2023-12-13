@@ -293,7 +293,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 998990345525322401, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
       propertyPath: gold
-      value: 200
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 998990345525322401, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
       propertyPath: spawner
@@ -313,7 +313,7 @@ PrefabInstance:
       objectReference: {fileID: 1169561612}
     - target: {fileID: 998990345525322401, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
       propertyPath: winningRound
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 998990345525322401, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
       propertyPath: gameOverPanel
@@ -1139,7 +1139,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2004,29 +2004,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36654d9bf8793e145944484f9b795c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 12
+  width: 7
   height: 8
   tilePrefab: {fileID: 5118476253232458891, guid: f774c478abf249840b63908d781e97a2, type: 3}
   homePrefab: {fileID: 6557571093540380143, guid: 1070c74c741194e45beea4433e753301, type: 3}
   mainCamera: {fileID: 1239772884}
-  startX: 0
+  startX: 3
   startY: 0
-  endX: 12
-  endY: 12
+  endX: 3
+  endY: 8
   start: {fileID: 0}
   end: {fileID: 0}
   homeBase: {fileID: 0}
   obstacles:
-  - {x: 1, y: 0}
-  - {x: 1, y: 1}
   - {x: 1, y: 2}
-  - {x: 1, y: 3}
-  - {x: 2, y: 3}
-  - {x: 10, y: 7}
-  - {x: 10, y: 6}
-  - {x: 10, y: 5}
-  - {x: 10, y: 4}
-  - {x: 9, y: 4}
+  - {x: 1, y: 5}
+  - {x: 5, y: 2}
+  - {x: 5, y: 5}
   ESM: {fileID: 872012379}
   paintPath: []
 --- !u!4 &1583491388
@@ -2548,7 +2542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5733201135394392276, guid: 6ef5793d81c295a44b9e870374e7d982, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5733201135394392276, guid: 6ef5793d81c295a44b9e870374e7d982, type: 3}
       propertyPath: m_LocalPosition.y

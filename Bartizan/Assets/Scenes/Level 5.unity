@@ -1139,7 +1139,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4
+          m_IntArgument: 6
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2004,29 +2004,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36654d9bf8793e145944484f9b795c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 12
+  width: 15
   height: 8
   tilePrefab: {fileID: 5118476253232458891, guid: f774c478abf249840b63908d781e97a2, type: 3}
   homePrefab: {fileID: 6557571093540380143, guid: 1070c74c741194e45beea4433e753301, type: 3}
   mainCamera: {fileID: 1239772884}
   startX: 0
-  startY: 0
-  endX: 12
-  endY: 12
+  startY: 8
+  endX: 7
+  endY: 3
   start: {fileID: 0}
   end: {fileID: 0}
   homeBase: {fileID: 0}
   obstacles:
-  - {x: 1, y: 0}
-  - {x: 1, y: 1}
-  - {x: 1, y: 2}
-  - {x: 1, y: 3}
-  - {x: 2, y: 3}
-  - {x: 10, y: 7}
-  - {x: 10, y: 6}
-  - {x: 10, y: 5}
-  - {x: 10, y: 4}
-  - {x: 9, y: 4}
+  - {x: 6, y: 3}
+  - {x: 6, y: 4}
+  - {x: 8, y: 4}
+  - {x: 8, y: 3}
+  - {x: 6, y: 2}
+  - {x: 8, y: 2}
   ESM: {fileID: 872012379}
   paintPath: []
 --- !u!4 &1583491388
@@ -2236,7 +2232,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: a7595090429ebab47998c18c04f17554, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3b0448618de8628419e241601feb3160, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2256,7 +2252,7 @@ Transform:
   m_GameObject: {fileID: 1705354849}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 3, z: -1}
+  m_LocalPosition: {x: 5.3, y: 3, z: -1}
   m_LocalScale: {x: 1.6780071, y: 1.8494631, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2552,7 +2548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5733201135394392276, guid: 6ef5793d81c295a44b9e870374e7d982, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5733201135394392276, guid: 6ef5793d81c295a44b9e870374e7d982, type: 3}
       propertyPath: m_LocalPosition.z
