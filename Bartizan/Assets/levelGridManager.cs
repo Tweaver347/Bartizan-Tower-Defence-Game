@@ -46,6 +46,17 @@ public class levelGridManager : MonoBehaviour
 
     }
 
+    public void updatePath()
+    {
+        Debug.Log("update path called");
+        List<Tile> path = A_Star(grid, start, end);
+
+        List<Vector3> enemy_Path = getPath_Vector3(path);
+
+        // provide path to enemy spawner
+        enemySpawnManager.setPath(enemy_Path, grid[0, 0]);
+    }
+
     /// <summary>
     /// Generates the grid with dimensions width and height
     /// </summary>
@@ -91,7 +102,7 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i - 1, j].GetComponent<Tile>().isEmpty())
                     {
-                        Debug.Log("adding top neighbour");
+                        //Debug.Log("adding top neighbour");
                         neighbors.Add(grid[i - 1, j].GetComponent<Tile>());
                     }
 
@@ -101,7 +112,7 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i, j - 1].GetComponent<Tile>().isEmpty())
                     {
-                        Debug.Log("adding left neighbour");
+                        //Debug.Log("adding left neighbour");
                         neighbors.Add(grid[i, j - 1].GetComponent<Tile>());
                     }
 
@@ -111,7 +122,7 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i + 1, j].GetComponent<Tile>().isEmpty())
                     {
-                        Debug.Log("adding bellow neighbour");
+                        //Debug.Log("adding bellow neighbour");
                         neighbors.Add(grid[i + 1, j].GetComponent<Tile>());
                     }
 
@@ -121,7 +132,7 @@ public class levelGridManager : MonoBehaviour
                 {
                     if (grid[i, j + 1].GetComponent<Tile>().isEmpty())
                     {
-                        Debug.Log("adding right neighbour");
+                        //Debug.Log("adding right neighbour");
                         neighbors.Add(grid[i, j + 1].GetComponent<Tile>());
                     }
 
@@ -175,7 +186,7 @@ public class levelGridManager : MonoBehaviour
     /// <returns></returns>
     public List<Tile> A_Star(GameObject[,] grid, Tile start, Tile end)
     {
-        Debug.Log("In find path");
+        Debug.Log("In A_Star");
         List<Tile> path = new List<Tile>();
 
         List<Tile> frontier = new List<Tile>();
@@ -186,20 +197,20 @@ public class levelGridManager : MonoBehaviour
         Tile startPoint = start;
         startPoint.setDistTo(0);
 
-        Debug.Log("starting while loop");
+        //Debug.Log("starting while loop");
         while (frontier.Count > 0)
         {
             Tile current = getClosestCell(frontier); //get the cell with lowest cost
             Tile[] neighbours = current.getNeighbours();
 
-            Debug.Log("checking neighbours");
+            //Debug.Log("checking neighbours");
             for (int i = 0; i < neighbours.Length; i++)
             {
                 Tile nextCell = neighbours[i];
 
                 if (!visited.Contains(nextCell) && !frontier.Contains(nextCell))
                 {
-                    Debug.Log("setting prev");
+                    //Debug.Log("setting prev");
                     nextCell.setPrevious(current);
                     nextCell.setDistTo(current.getDistTo() + 1);
                     nextCell.setDistFrom(calculateH(current, end));
@@ -212,8 +223,8 @@ public class levelGridManager : MonoBehaviour
 
             if (current == end)
             {
-                Debug.Log("end found. Path:");
-
+                //Debug.Log("end found. Path:");
+                path.Add(current);
                 while (current.getPrevious() != null)
                 {
 
@@ -229,20 +240,26 @@ public class levelGridManager : MonoBehaviour
 
 
         //Debug.Log("returning path: " + path);
-        Debug.Log("path length:" + path.Count);
+        //Debug.Log("path length:" + path.Count);
 
+        colorPath(path);
+        
+
+        return path;
+    }
+
+    private void colorPath(List<Tile> path)
+    {
         // for each tile in path change the tile color to red
         foreach (Tile tile in path)
         {
-            Debug.Log("in for loop");
+            //Debug.Log("in for loop");
             tile.GetComponent<SpriteRenderer>().color = Color.red;
         }
         // change the start tile color to blue
         start.GetComponent<SpriteRenderer>().color = Color.blue;
         // change the end tile color to blue
         end.GetComponent<SpriteRenderer>().color = Color.blue;
-
-        return path;
     }
 
     private List<Vector3> getPath_Vector3(List<Tile> path)
