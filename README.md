@@ -18,7 +18,7 @@ In Bartizan, players must:
 - Create obstacles and divert enemy paths by smartly placing towers on a grid-based terrain.
 
 ## Level Design
-
+![golem](https://github.com/Tweaver347/Bartizan-Tower-Defence-Game/assets/74430398/37b7dc30-612e-4187-81a1-29e7c37c75c8)
 - Explore diverse levels with open terrains and grids for strategic tower placement.
 - Design your defense layout to divert enemy paths and optimize tower effectiveness.
 
