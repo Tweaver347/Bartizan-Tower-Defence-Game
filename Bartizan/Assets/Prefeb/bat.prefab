@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe18b33efc7659a43bbea50714bb3547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  moveSpeed: 2
   trashcan: {fileID: 0}
   GM: {fileID: 8553056504492693591, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
   gold_Amount: 1
