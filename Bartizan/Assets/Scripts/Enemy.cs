@@ -9,14 +9,13 @@ public class Enemy : MonoBehaviour
     private List<Vector3> path;
     private float targetRadius = 0.5f;
     [SerializeField] private float moveSpeed = 10f;
-    [SerializeField] private GameObject trashcan;
+    [SerializeField] private GameManager gameManager;
     private int currentWayPointIndex = 0;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        trashcan = GameObject.Find("TrashCan");
         myTransform = this.gameObject.transform;
     }
 
@@ -56,7 +55,7 @@ public class Enemy : MonoBehaviour
 
     private void dead()
     {
-        gameManager.addGold(gold_Amount);
+        //gameManager.addGold(gold_Amount);
         Destroy(gameObject);
         //test
     }
