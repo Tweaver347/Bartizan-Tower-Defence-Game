@@ -12,7 +12,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     private int baseEnemies = 5;
     private float enemiesPerSecond = 0.5f;
-    private float timeBetweenWaves = 5f;
+    private float timeBetweenWaves = 4f;
     private float waveMultiplier = 1f;
 
     [SerializeField] private TMPro.TextMeshProUGUI waveText;
@@ -20,7 +20,7 @@ public class EnemySpawnManager : MonoBehaviour
     private float timeSinceLastSpawn;
     public int enemiesAlive;
 
-    private int numBats, numGolem, numBoss;
+    private int numBoss;
     public int enemiesLeftToSpawn;
     private bool isSpawning = false;
 
@@ -67,7 +67,8 @@ public class EnemySpawnManager : MonoBehaviour
         isSpawning = false;
         timeSinceLastSpawn = 0f;
         currWave++;
-        enemiesPerSecond += 0.05f * currWave;
+        timeBetweenWaves += .5f; // increase time between waves
+        enemiesPerSecond += 0.03f * currWave; // increase enemies per second
         waveText.text = "Wave " + currWave;
         StartCoroutine(StartWave());
     }
@@ -101,11 +102,13 @@ public class EnemySpawnManager : MonoBehaviour
 
         if (numBoss > 0)
         {
+            enemiesLeftToSpawn++;
             numBoss--;
             enemiesAlive++;
             prefabToSpawn = enemyPrefabs[2];
             spawnedEnemy = Instantiate(prefabToSpawn, spawnLocation.GetComponent<Transform>().position, Quaternion.identity);
             spawnedEnemy.GetComponent<Enemy>().setup(enemy_Path);
+            enemiesLeftToSpawn--;
 
         }
 
@@ -115,6 +118,19 @@ public class EnemySpawnManager : MonoBehaviour
     {
         //Debug.Log("Enemy has been Destroyed (Invoke)");
         enemiesAlive--;
+
+        // failsafe for if the number of enemies alive is less than 0
+        if (enemiesAlive < 0)
+        {
+            GameObject[] objectsWithLayer = FindObjectsOfType<GameObject>();
+            foreach (GameObject obj in objectsWithLayer)
+            {
+                if (obj.layer == LayerMask.NameToLayer("Enemy"))
+                {
+                    enemiesAlive++;
+                }
+            }
+        }
     }
 
     public void beginRound()

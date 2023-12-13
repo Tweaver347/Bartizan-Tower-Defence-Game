@@ -141,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1816931476710044729, guid: adec6c67ae78c5847b4064baeff45cdb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1816931476710044729, guid: adec6c67ae78c5847b4064baeff45cdb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -160,8 +160,12 @@ PrefabInstance:
       value: GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1816931476710044729, guid: adec6c67ae78c5847b4064baeff45cdb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 57821831}
+    - target: {fileID: 1816931476710044729, guid: adec6c67ae78c5847b4064baeff45cdb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2230392948772898424, guid: adec6c67ae78c5847b4064baeff45cdb, type: 3}
       propertyPath: m_text
@@ -278,6 +282,11 @@ PrefabInstance:
       addedObject: {fileID: 1169561611}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adec6c67ae78c5847b4064baeff45cdb, type: 3}
+--- !u!1 &57821831 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3239617853119641072, guid: adec6c67ae78c5847b4064baeff45cdb, type: 3}
+  m_PrefabInstance: {fileID: 57821830}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &98989137 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7496743551602132966, guid: adec6c67ae78c5847b4064baeff45cdb, type: 3}

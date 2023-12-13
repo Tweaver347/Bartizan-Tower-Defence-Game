@@ -141,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1816931476710044729, guid: adec6c67ae78c5847b4064baeff45cdb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1816931476710044729, guid: adec6c67ae78c5847b4064baeff45cdb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -160,8 +160,12 @@ PrefabInstance:
       value: GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1816931476710044729, guid: adec6c67ae78c5847b4064baeff45cdb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2127547105}
+    - target: {fileID: 1816931476710044729, guid: adec6c67ae78c5847b4064baeff45cdb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2230392948772898424, guid: adec6c67ae78c5847b4064baeff45cdb, type: 3}
       propertyPath: m_text
@@ -2524,6 +2528,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085254160}
   m_CullTransparentMesh: 1
+--- !u!1 &2127547105 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3239617853119641072, guid: adec6c67ae78c5847b4064baeff45cdb, type: 3}
+  m_PrefabInstance: {fileID: 57821830}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &128197607381433099
 PrefabInstance:
   m_ObjectHideFlags: 0

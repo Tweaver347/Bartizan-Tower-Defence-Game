@@ -38,7 +38,8 @@ public class GameManager : MonoBehaviour
 
         if (spawner.GetComponent<EnemySpawnManager>().getCurrWave() == winningRound + 1
              && spawner.GetComponent<EnemySpawnManager>().getEnemiesAlive() == 0 && lives > 0
-             && spawner.GetComponent<EnemySpawnManager>().getEnemiesLeftToSpawn() == 0)
+             && spawner.GetComponent<EnemySpawnManager>().getEnemiesLeftToSpawn() == 0
+             || spawner.GetComponent<EnemySpawnManager>().getCurrWave() == winningRound + 2)
         {
             winLevel();
         }
@@ -46,10 +47,12 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void beginRound()
+    public void beginRound(GameObject button)
     {
         //Debug.Log("Begin Round");
+        button.SetActive(false);
         spawner.GetComponent<EnemySpawnManager>().beginRound();
+
 
     }
 
