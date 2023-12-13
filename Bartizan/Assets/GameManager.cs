@@ -85,4 +85,9 @@ public class GameManager : MonoBehaviour
     {
         return lives;
     }
+
+    public void addGold(int amount)
+    {
+        gold = gold + amount;
+    }
 }

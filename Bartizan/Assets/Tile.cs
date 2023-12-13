@@ -14,6 +14,7 @@ public class Tile : MonoBehaviour
 
     [Header("A* Attributes")]
     [SerializeField] private int distTo, distFrom;
+    private levelGridManager levelGridManager;
     private Tile[] neighbours;
     private Tile previous;
 
@@ -30,12 +31,14 @@ public class Tile : MonoBehaviour
         yLoc = y;
         isPathable = pathable;
         GameManager = GameObject.Find("GameManager");
+        levelGridManager = GameObject.FindGameObjectWithTag("Grid Printer").GetComponent<levelGridManager>();
     }
 
     public void setTower(GameObject tower)
     {
         spawnedTower = Instantiate(tower, this.transform.position, Quaternion.identity);
         isPathable = false;
+        levelGridManager.updatePath();
     }
 
     public void setPathable(bool pathable) { isPathable = pathable; }
