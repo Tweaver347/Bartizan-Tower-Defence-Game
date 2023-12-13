@@ -40,11 +40,14 @@ public class Tower : MonoBehaviour
     {
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2)transform.position, 0f, enemyLayer);
 
-        Collider2D hitCollider = hits[0].collider;
-
-        if (hitCollider != null)
+        if (hits.Length > 0)
         {
-            target = hitCollider.gameObject;
+            Collider2D hitCollider = hits[0].collider;
+
+            if (hitCollider != null)
+            {
+                target = hitCollider.gameObject;
+            }
         }
     }
 
