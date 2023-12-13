@@ -9,13 +9,12 @@ public class Enemy : MonoBehaviour
     private List<Vector3> path;
     private float targetRadius = 0.5f;
     [SerializeField] private float moveSpeed = 10f;
-    [SerializeField] private GameManager gameManager;
     private int currentWayPointIndex = 0;
 
     [SerializeField] GameObject GM;
-    [SerializeField] private int gold_Amount;
     private GameManager gameManager;
 
+    [SerializeField] private int gold_Amount;
     [SerializeField] private int health = 10;
 
 
@@ -64,14 +63,14 @@ public class Enemy : MonoBehaviour
     {
         //gameManager.addGold(gold_Amount);
         Destroy(gameObject);
-        
+
     }
 
     public void takeDamage(int amount)
     {
         health = health - amount;
 
-        if(health <= 0)
+        if (health <= 0)
         {
             dead();
         }
