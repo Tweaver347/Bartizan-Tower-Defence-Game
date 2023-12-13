@@ -67,6 +67,7 @@ public class Enemy : MonoBehaviour
     {
         gameManager.addGold(gold_Amount);
         Destroy(gameObject);
+        //test
     }
 
     public void takeDamage(int amount)
