@@ -67,6 +67,8 @@ public class EnemySpawnManager : MonoBehaviour
         isSpawning = false;
         timeSinceLastSpawn = 0f;
         currWave++;
+        timeBetweenWaves -= 0.05f * currWave;
+        enemiesPerSecond += 0.05f * currWave;
         waveText.text = "Wave " + currWave;
         StartCoroutine(StartWave());
     }

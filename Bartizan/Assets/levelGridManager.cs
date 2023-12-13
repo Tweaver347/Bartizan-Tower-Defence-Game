@@ -64,8 +64,8 @@ public class levelGridManager : MonoBehaviour
             int y = (int)obstacle.y;
             // set tile to false
             grid[x, y].GetComponent<Tile>().setPathable(false);
-            // change color of tile to black
-            grid[x, y].GetComponent<SpriteRenderer>().color = Color.black;
+            // change color of tile to gray
+            grid[x, y].GetComponent<SpriteRenderer>().color = Color.gray;
         }
         manageGrid(grid); // redo nehighbours
         // Clamp Start ints and End ints values within the grid
