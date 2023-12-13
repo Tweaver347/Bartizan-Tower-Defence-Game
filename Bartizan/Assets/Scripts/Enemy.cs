@@ -12,11 +12,18 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameManager gameManager;
     private int currentWayPointIndex = 0;
 
+    [SerializeField] GameObject GM;
+    [SerializeField] private int gold_Amount;
+    private GameManager gameManager;
+
+    [SerializeField] private int health = 10;
+
 
     // Start is called before the first frame update
     void Start()
     {
         myTransform = this.gameObject.transform;
+        gameManager = GM.GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -57,7 +64,17 @@ public class Enemy : MonoBehaviour
     {
         //gameManager.addGold(gold_Amount);
         Destroy(gameObject);
-        //test
+        
+    }
+
+    public void takeDamage(int amount)
+    {
+        health = health - amount;
+
+        if(health <= 0)
+        {
+            dead();
+        }
     }
 
 

@@ -147,6 +147,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   trashcan: {fileID: 0}
+  GM: {fileID: 8553056504492693591, guid: 8a3cb5b5c26c6c243a38054ac00538a7, type: 3}
+  gold_Amount: 1
 --- !u!50 &-2614296298165773804
 Rigidbody2D:
   serializedVersion: 4
