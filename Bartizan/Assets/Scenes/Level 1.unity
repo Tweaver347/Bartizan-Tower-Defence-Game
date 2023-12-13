@@ -424,6 +424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 5555653196125625385, guid: f4e42c4fa9f9dff4e8a93acded318fef, type: 3}
+  - {fileID: 4036000541364129930, guid: 87eddd30b2629764e8abec0cfce318ff, type: 3}
 --- !u!1 &913243348 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5219776000049198909, guid: adec6c67ae78c5847b4064baeff45cdb, type: 3}
