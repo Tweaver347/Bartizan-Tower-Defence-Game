@@ -7,7 +7,7 @@ public class ButtonManager : MonoBehaviour
     /// </summary>
     public void NewGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Level 1");
         Debug.Log("Starting a New Game!");
     }
 
@@ -16,15 +16,14 @@ public class ButtonManager : MonoBehaviour
     /// </summary>
     public void GoToLevelSelect()
     {
-        SceneManager.LoadScene("Levels");
+        SceneManager.LoadScene("Level Select");
         Debug.Log("Going to Level Select!");
     }
 
     public void GoToLevel(int levelID)
     {
-        string levelName = "Level" + levelID;
-        Debug.Log("Going to Level " + levelID);
-        SceneManager.LoadScene(levelName);
+        // load scene by index
+        SceneManager.LoadScene(levelID);
     }
 
     /// <summary>
@@ -35,6 +34,13 @@ public class ButtonManager : MonoBehaviour
         SceneManager.LoadScene("Credits");
         Debug.Log("Going to the Credits!");
     }
+
+    public void GoTOMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+        Debug.Log("Going to the Main Menu!");
+    }
+
 
     /// <summary>
     /// Quits the application

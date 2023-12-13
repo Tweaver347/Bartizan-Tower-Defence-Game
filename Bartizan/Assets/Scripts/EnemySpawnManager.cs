@@ -8,7 +8,7 @@ public class EnemySpawnManager : MonoBehaviour
 {
     [SerializeField] GameObject[] enemyPrefabs;
 
-    private Transform spawnLocation;
+    [SerializeField] private Transform spawnLocation;
 
     private int baseEnemies = 5;
     private float enemiesPerSecond = 0.5f;
@@ -34,12 +34,9 @@ public class EnemySpawnManager : MonoBehaviour
         startRound = false;
 
     }
-
-
     public void setPath(List<Vector3> path, GameObject start)
     {
         enemy_Path = path;
-        spawnLocation = start.GetComponent<Transform>();
     }
 
     private void Update()

@@ -23,7 +23,10 @@ public class levelGridManager : MonoBehaviour
 
     // Start and end tiles
     [Header("Start and End Tiles")]
-    [SerializeField] private int startX, startY, endX, endY; // serialized int x and y for start and end tiles
+    [SerializeField] private int startX;
+    [SerializeField] private int startY;
+    [SerializeField] private int endX;
+    [SerializeField] private int endY; // serialized int x and y for start and end tiles
     [SerializeField] private Tile start;
     [SerializeField] private Tile end;
 

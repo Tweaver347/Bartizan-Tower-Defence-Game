@@ -720,14 +720,9 @@ MonoBehaviour:
   end: {fileID: 0}
   homeBase: {fileID: 0}
   obstacles:
-  - {x: 2, y: 3}
-  - {x: 2, y: 4}
-  - {x: 3, y: 3}
-  - {x: 3, y: 4}
-  - {x: 6, y: 3}
-  - {x: 6, y: 4}
-  - {x: 7, y: 3}
-  - {x: 7, y: 4}
+  - {x: 1, y: 0}
+  - {x: 1, y: 1}
+  - {x: 1, y: 2}
   ESM: {fileID: 872012379}
 --- !u!4 &1583491388
 Transform:
