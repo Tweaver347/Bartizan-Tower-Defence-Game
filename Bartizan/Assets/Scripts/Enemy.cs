@@ -56,7 +56,9 @@ public class Enemy : MonoBehaviour
 
     private void dead()
     {
-        //add 1 gold to the total gold count
+        gameManager.addGold(gold_Amount);
+        Destroy(gameObject);
+        //test
     }
 
 
