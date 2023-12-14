@@ -41,5 +41,5 @@ We welcome contributions to improve and expand Bartizan. If you have suggestions
 ## Credits
 
 Neel Dadhania - Gameplay Programmer
-Hayden Le - Music and Sounds Design
+Hayden Le - Assets, Music and Sounds Design 
 Thomas Weaver - UI and Level Design
