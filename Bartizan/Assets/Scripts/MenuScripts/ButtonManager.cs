@@ -54,4 +54,9 @@ public class ButtonManager : MonoBehaviour
         Application.Quit();
         Debug.Log("Game Closed");
     }
+
+    public void disableObject(GameObject obj)
+    {
+        obj.SetActive(false);
+    }
 }
